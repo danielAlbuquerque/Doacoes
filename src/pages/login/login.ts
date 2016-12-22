@@ -7,10 +7,12 @@ import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 
 import { AuthProvider } from '../../providers/auth';
 
+import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
+  providers: [AuthProvider]
 })
 export class LoginPage {
 	loginForm: any;
@@ -26,13 +28,15 @@ export class LoginPage {
    * @param {FormBuilder}       public formBuilder 
    * @param {AlertController}   public alertCtrl   
    * @param {LoadingController} public loadingCtrl 
+   * @param {AuthProvider}      private auth 
    */
 	constructor(
 	  	public navCtrl: NavController, 
 	  	public navParams: NavParams,
 	  	public formBuilder: FormBuilder,
 	  	public alertCtrl: AlertController,
-	  	public loadingCtrl: LoadingController
+	  	public loadingCtrl: LoadingController,
+      private auth: AuthProvider
   	) {
   		  this.loginForm = formBuilder.group({
         	email: ['', Validators.compose([Validators.required])],
@@ -50,19 +54,14 @@ export class LoginPage {
   		} else {
   			this.showLoading();
   			
-        this.auth.login(this.registerCredentials).subscribe(result => {
-      console.log(result);
-      if(result) {
-        setTimeout(() => {
-          this.loading.dismiss();
-          this.nav.setRoot(HomePage);
+        this.auth.loginEmail(this.loginForm.value).subscribe(result => {
+            setTimeout(() => {
+              this.loading.dismiss();
+              this.navCtrl.setRoot(HomePage);
+            });
+        }, error => {
+            this.showError(error);
         });
-      } else {
-        this.showError("Error creating account.");
-      }
-    }, error => {
-      this.showError(error);
-    });
   		}
   	}
 
