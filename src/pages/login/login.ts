@@ -44,6 +44,11 @@ export class LoginPage {
       	});
   	}
 
+
+    ionViewDidLoad() {
+        this.verificaLogado();
+    }
+
   	/**
      * Realiza o login
      */
@@ -124,6 +129,19 @@ export class LoginPage {
 
   		alert.present(prompt);
   	}
+
+    /**
+     * Verifica se o usuário já está logado
+     */
+    private verificaLogado() {
+        this.showLoading();
+        this.auth.getUserData().subscribe((user) => {
+            this.loading.dismiss();
+            this.navCtrl.setRoot(HomePage);
+        }, err => {
+            this.loading.dismiss();
+        });
+    }
 
 
 }

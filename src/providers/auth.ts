@@ -36,6 +36,8 @@ export class AuthProvider {
 	          	} else {
 	            	observer.error();
 	          	}
+        	}, (err) => {
+        		observer.error(err);
         	});
       	});      	
   	}
