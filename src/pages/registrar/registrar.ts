@@ -1,22 +1,74 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 
-/*
-  Generated class for the Registrar page.
+import { FormBuilder, Validators } from '@angular/forms';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-registrar',
   templateUrl: 'registrar.html'
 })
 export class RegistrarPage {
+	registrarForm;
+	nomeChanged: boolean = false;
+	emailChanged: boolean = false;
+  	passwordChanged: boolean = false;
+  	submitAttempt: boolean = false;
+  	loading: Loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+	constructor(
+		public navCtrl: NavController, 
+		public navParams: NavParams,
+		public formBuilder: FormBuilder,
+	  	public alertCtrl: AlertController,
+	  	public loadingCtrl: LoadingController
+	) {
+		this.registrarForm = formBuilder.group({
+			nome: ['', Validators.compose([Validators.required])],
+        	email: ['', Validators.compose([Validators.required])],
+        	password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      	});
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistrarPage');
-  }
+
+	/** Não sei oq essa porra faz mas precisa ta aqui */
+  	elementChanged(input){
+    	let field = input.inputControl.name;
+    	this[field + "Changed"] = true;
+  	}
+
+  	/** Registrar novo usuário */
+  	registrar() {
+  		this.submitAttempt = true;
+  		if(!this.registrarForm.valid) {
+  			console.log(this.registrarForm.value);
+  		} else {
+  			this.showLoading();
+  			// Todo: Implementar o registro
+  		}
+  	}
+
+  	/** Exibe o popup loading */
+  	private showLoading() {
+		this.loading = this.loadingCtrl.create({
+			content: 'Aguarde...'
+		});
+		this.loading.present();
+	}
+
+	/** Exibe uma mensagem de erro ao usuário */
+	private showError(text) {
+		setTimeout(() => {
+			this.loading.dismiss();
+		});
+
+		let alert = this.alertCtrl.create({
+			title: 'Fail',
+			subTitle: text,
+			buttons: ['OK']
+		});
+
+		alert.present(prompt);
+	}
+  
 
 }
