@@ -9,7 +9,7 @@
 
 <ion-content padding class="page-login">
 	<img src="http://placehold.it/300x100">
-	<form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+	<form [formGroup]="loginForm" (submit)="loginEmail()" novalidate>
 		<ion-item>
       		<ion-label stacked>Email</ion-label>
 		    	<ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
@@ -40,11 +40,11 @@
     	</button>
 	</form>
 
-	<button ion-button block clear (click)="goToSignup()">
+	<button ion-button block clear (click)="criarConta()">
       Criar uma conta
     </button>
 
-    <button ion-button block clear (click)="goToResetPassword()">
+    <button ion-button block clear (click)="recuperarSenha()">
       Esqueci minha senha
     </button>
 
