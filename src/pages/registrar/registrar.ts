@@ -3,14 +3,14 @@ import { NavController, NavParams, AlertController, LoadingController, Loading }
 
 import { FormBuilder, Validators } from '@angular/forms';
 
-import { AuthProdiver } from '../../providers/auth';
+import { AuthProvider } from '../../providers/auth';
 
 import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-registrar',
   templateUrl: 'registrar.html',
-  providers: [AuthProdiver]
+  providers: [AuthProvider]
 })
 export class RegistrarPage {
     registrarForm;
@@ -27,7 +27,7 @@ export class RegistrarPage {
   	 * @param {FormBuilder}       public formBuilder 
   	 * @param {AlertController}   public alertCtrl   
      * @param {LoadingController} public loadingCtrl 
-  	 * @param {AuthProdiver}      private auth 
+  	 * @param {AuthProvider}      private auth 
   	 */
 	  constructor(
   		  public navCtrl: NavController, 
@@ -35,7 +35,7 @@ export class RegistrarPage {
   		  public formBuilder: FormBuilder,
   	  	public alertCtrl: AlertController,
   	  	public loadingCtrl: LoadingController,
-        private auth: AuthProdiver
+        private auth: AuthProvider
   	) {
   		  this.registrarForm = formBuilder.group({
   			    nome: ['', Validators.compose([Validators.required])],

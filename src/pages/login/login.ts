@@ -5,6 +5,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { RegistrarPage } from '../registrar/registrar';
 import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 
+import { AuthProvider } from '../../providers/auth';
+
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -31,7 +34,7 @@ export class LoginPage {
 	  	public alertCtrl: AlertController,
 	  	public loadingCtrl: LoadingController
   	) {
-  		this.loginForm = formBuilder.group({
+  		  this.loginForm = formBuilder.group({
         	email: ['', Validators.compose([Validators.required])],
         	password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
       	});
@@ -46,7 +49,20 @@ export class LoginPage {
   			console.log(this.loginForm.value);
   		} else {
   			this.showLoading();
-  			// Todo: Implementar o registro
+  			
+        this.auth.login(this.registerCredentials).subscribe(result => {
+      console.log(result);
+      if(result) {
+        setTimeout(() => {
+          this.loading.dismiss();
+          this.nav.setRoot(HomePage);
+        });
+      } else {
+        this.showError("Error creating account.");
+      }
+    }, error => {
+      this.showError(error);
+    });
   		}
   	}
 

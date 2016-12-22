@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
-export class AuthProdiver {
+export class AuthProvider {
 
 	/**
 	 * Construtor
