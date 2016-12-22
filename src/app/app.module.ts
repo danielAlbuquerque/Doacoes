@@ -3,12 +3,14 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { RegistrarPage } from '../pages/registrar/registrar';
+import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
 
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
-    RegistrarPage
+    RegistrarPage,
+    RecuperarSenhaPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -17,7 +19,8 @@ import { RegistrarPage } from '../pages/registrar/registrar';
   entryComponents: [
     MyApp,
     LoginPage,
-    RegistrarPage
+    RegistrarPage,
+    RecuperarSenhaPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
