@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Doações</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="page-login">
+	<img src="http://placehold.it/300x100">
+	<form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+		<ion-item>
+      		<ion-label stacked>Email</ion-label>
+		    	<ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
+		        placeholder="Digite o seu e-mail" [class.invalid]="!loginForm.controls.email.valid && (emailChanged || submitAttempt)">
+		        </ion-input>
+		</ion-item>
+    	<ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && (emailChanged || submitAttempt)">
+      		<p>Digite o seu e-mail</p>
+    	</ion-item>
+
+    	<ion-item>
+    		<ion-label stacked>Senha</ion-label>
+      		<ion-input #password formControlName="password" type="password" (change)="elementChanged(password)"
+        		placeholder="Digite sua senha" [class.invalid]="!loginForm.controls.password.valid && (passwordChanged || submitAttempt)">	
+			</ion-input>
+    	</ion-item>
+
+    	<ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && (passwordChanged || submitAttempt)">
+      		<p>Sua senha precisa ser maior que 6 caracteres</p>
+    	</ion-item>
+
+    	<button ion-button block type="submit">
+      		Login
+    	</button>
+    	<button ion-button icon-left block type="button" class="btn-fb">
+    		<ion-icon name="logo-facebook"></ion-icon>
+      		Entrar usando Facebook
+    	</button>
+	</form>
+
+	<button ion-button block clear (click)="goToSignup()">
+      Criar uma conta
+    </button>
+
+    <button ion-button block clear (click)="goToResetPassword()">
+      Esqueci minha senha
+    </button>
+
+</ion-content>
