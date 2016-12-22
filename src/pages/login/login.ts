@@ -12,10 +12,18 @@ import { RecuperarSenhaPage } from '../recuperar-senha/recuperar-senha';
 export class LoginPage {
 	loginForm: any;
 	emailChanged: boolean = false;
-  	passwordChanged: boolean = false;
-  	submitAttempt: boolean = false;
+  passwordChanged: boolean = false;
+  submitAttempt: boolean = false;
 	loading: Loading;	
 
+  /**
+   * [constructor description]
+   * @param {NavController}     public navCtrl     
+   * @param {NavParams}         public navParams   
+   * @param {FormBuilder}       public formBuilder 
+   * @param {AlertController}   public alertCtrl   
+   * @param {LoadingController} public loadingCtrl 
+   */
 	constructor(
 	  	public navCtrl: NavController, 
 	  	public navParams: NavParams,
@@ -29,7 +37,9 @@ export class LoginPage {
       	});
   	}
 
-  	/** Realiza o login através de email/senha */
+  	/**
+     * Realiza o login
+     */
   	loginEmail() {
   		this.submitAttempt = true;
   		if(!this.loginForm.valid) {
@@ -40,51 +50,65 @@ export class LoginPage {
   		}
   	}
 
-  	/** Envia o usuário para a tela de criar conta */
+  	/**
+     * Envia o usuário para a págin de criar conta
+     */
   	criarConta() {
   		this.navCtrl.push(RegistrarPage);	
   	}
 
-  	/** Envia o usuário para tela de resetar senha */
+  	/**
+     * Envia o usuário para a página de recuperar senha
+     */
   	recuperarSenha() {
   		this.navCtrl.push(RecuperarSenhaPage);
   	}
 
 
-  	/** Realiza o login através do facebook */
+  	/**
+     * Realiza o login através do facebook]
+     */
   	loginFacebook() {
   		// Todo: Implementar essa function
   	}
 
-  	/** Não sei oq essa porra faz mas precisa ta aqui */
+  	/**
+     * Não sei oq essa porra faz mas precisa ta aqui ]
+     * @param {[type]} input elemento do form
+     */
   	elementChanged(input){
     	let field = input.inputControl.name;
     	this[field + "Changed"] = true;
   	}
 
   	
-  	/** Exibe o popup loading */
+  	/**
+     * Exibe o popup loading
+     */
   	private showLoading() {
-		this.loading = this.loadingCtrl.create({
-			content: 'Aguarde...'
-		});
-		this.loading.present();
-	}
+		  this.loading = this.loadingCtrl.create({
+			  content: 'Aguarde...'
+		  });
+		  this.loading.present();
+	  }
 
-	/** Exibe uma mensagem de erro ao usuário */
-	private showError(text) {
-		setTimeout(() => {
-			this.loading.dismiss();
-		});
+  	/**
+     * Exibe um erro
+     * @param {[type]} text Mensagem de erro
+     */
+  	private showError(text) {
+  		setTimeout(() => {
+  			this.loading.dismiss();
+  		});
 
-		let alert = this.alertCtrl.create({
-			title: 'Fail',
-			subTitle: text,
-			buttons: ['OK']
-		});
+  		let alert = this.alertCtrl.create({
+  			title: 'Fail',
+  			subTitle: text,
+  			buttons: ['OK']
+  		});
 
-		alert.present(prompt);
-	}
+  		alert.present(prompt);
+  	}
 
 
 }

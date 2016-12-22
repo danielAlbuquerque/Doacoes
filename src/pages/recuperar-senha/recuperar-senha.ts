@@ -8,12 +8,20 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RecuperarSenhaPage {
 
-	public resetPasswordForm;
-	emailChanged: boolean = false;
+	  public resetPasswordForm;
+	  emailChanged: boolean = false;
   	passwordChanged: boolean = false;
   	submitAttempt: boolean = false;
   	loading: Loading;
 
+    /**
+     * Construtor
+     * @param {NavController}     public navCtrl    
+     * @param {NavParams}         public navParams   
+     * @param {FormBuilder}       public formBuilder 
+     * @param {LoadingController} public loadingCtrl 
+     * @param {AlertController}   public alertCtrl   
+     */
   	constructor(
   		public navCtrl: NavController, 
   		public navParams: NavParams,
@@ -26,38 +34,48 @@ export class RecuperarSenhaPage {
     	});
   	}
 
-  	/** Envia senha por e-mail */
+  	/**
+     * ação do botao recuperar senha
+     */
   	resetPassword(){
   		this.submitAttempt = true;
   	}
 
-  	/** Não sei pra que serve essa porra */
-  	elementChanged(input){
-	    let field = input.inputControl.name;
-	    this[field + "Changed"] = true;
-  	}
+  	/**
+     * Não sei oq essa porra faz mas precisa ta aqui ]
+     * @param {[type]} input elemento do form
+     */
+    elementChanged(input){
+      let field = input.inputControl.name;
+      this[field + "Changed"] = true;
+    }
 
-  	/** Exibe o popup loading */
-  	private showLoading() {
-		this.loading = this.loadingCtrl.create({
-			content: 'Aguarde...'
-		});
-		this.loading.present();
-	}
+  	/**
+     * Exibe o popup loading
+     */
+    private showLoading() {
+      this.loading = this.loadingCtrl.create({
+        content: 'Aguarde...'
+      });
+      this.loading.present();
+    }
 
-	/** Exibe uma mensagem de erro ao usuário */
-	private showError(text) {
-		setTimeout(() => {
-			this.loading.dismiss();
-		});
+    /**
+     * Exibe um erro
+     * @param {[type]} text Mensagem de erro
+     */
+    private showError(text) {
+      setTimeout(() => {
+        this.loading.dismiss();
+      });
 
-		let alert = this.alertCtrl.create({
-			title: 'Fail',
-			subTitle: text,
-			buttons: ['OK']
-		});
+      let alert = this.alertCtrl.create({
+        title: 'Fail',
+        subTitle: text,
+        buttons: ['OK']
+      });
 
-		alert.present(prompt);
-	}
+      alert.present(prompt);
+    }
 
 }

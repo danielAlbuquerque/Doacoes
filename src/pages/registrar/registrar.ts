@@ -15,6 +15,14 @@ export class RegistrarPage {
   	submitAttempt: boolean = false;
   	loading: Loading;
 
+  	/**
+  	 * Construtor
+  	 * @param {NavController}     public navCtrl     
+  	 * @param {NavParams}         public navParams   
+  	 * @param {FormBuilder}       public formBuilder 
+  	 * @param {AlertController}   public alertCtrl   
+  	 * @param {LoadingController} public loadingCtrl 
+  	 */
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams,
@@ -30,13 +38,9 @@ export class RegistrarPage {
 	}
 
 
-	/** Não sei oq essa porra faz mas precisa ta aqui */
-  	elementChanged(input){
-    	let field = input.inputControl.name;
-    	this[field + "Changed"] = true;
-  	}
-
-  	/** Registrar novo usuário */
+  	/**
+  	 * Registrar
+  	 */
   	registrar() {
   		this.submitAttempt = true;
   		if(!this.registrarForm.valid) {
@@ -47,28 +51,42 @@ export class RegistrarPage {
   		}
   	}
 
-  	/** Exibe o popup loading */
-  	private showLoading() {
-		this.loading = this.loadingCtrl.create({
-			content: 'Aguarde...'
-		});
-		this.loading.present();
-	}
+  	/**
+     * Não sei oq essa porra faz mas precisa ta aqui ]
+     * @param {[type]} input elemento do form
+     */
+    elementChanged(input){
+      	let field = input.inputControl.name;
+      	this[field + "Changed"] = true;
+    }
 
-	/** Exibe uma mensagem de erro ao usuário */
-	private showError(text) {
-		setTimeout(() => {
-			this.loading.dismiss();
-		});
+  	/**
+     * Exibe o popup loading
+     */
+    private showLoading() {
+	    this.loading = this.loadingCtrl.create({
+	        content: 'Aguarde...'
+	    });
+	    this.loading.present();
+    }
 
-		let alert = this.alertCtrl.create({
-			title: 'Fail',
-			subTitle: text,
-			buttons: ['OK']
-		});
+    /**
+     * Exibe um erro
+     * @param {[type]} text Mensagem de erro
+     */
+    private showError(text) {
+      setTimeout(() => {
+        this.loading.dismiss();
+      });
 
-		alert.present(prompt);
-	}
+      let alert = this.alertCtrl.create({
+        title: 'Fail',
+        subTitle: text,
+        buttons: ['OK']
+      });
+
+      alert.present(prompt);
+    }
   
 
 }
