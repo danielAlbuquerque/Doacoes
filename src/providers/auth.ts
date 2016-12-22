@@ -62,14 +62,17 @@ export class AuthProdiver {
   			return Observable.throw("Please insert credentials");
   		} else {
   			return Observable.create(observer => {
-  				this.auth.createUser(credentials).then((authData) => {
-		            // Save in firebase new item in users node
-		            this.af.database.list('users').update(authData.uid, {
-		              name: authData.auth.email,
-		              email: authData.auth.email,
-		              emailVerified: false,
-		              provider: 'email',
-		              image: 'https://freeiconshop.com/files/edd/person-solid.png'
+  				let user = { 
+  					email: credentials.email, 
+  					password: credentials.password 
+  				};
+  				this.auth.createUser(user).then((authData) => {
+		            this.af.database.list('usuarios').update(authData.uid, {
+		            	nome: 			credentials.nome,
+		            	email: 			authData.auth.email,
+		            	emailVerified:  false,
+		            	provider:       'email',
+		            	image: 		    'https://freeiconshop.com/files/edd/person-solid.png'
 		            });
 
   					observer.next(true);

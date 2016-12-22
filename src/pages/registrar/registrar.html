@@ -12,13 +12,13 @@
 
 		<ion-item>
       		<ion-label stacked>Nome</ion-label>
-		    <ion-input #email formControlName="nome" type="text" (change)="elementChanged(nome)"
+		    <ion-input #nome formControlName="nome" type="text" (change)="elementChanged(nome)"
 		        placeholder="Informe o seu nome" [class.invalid]="!registrarForm.controls.nome.valid && (nomeChanged || submitAttempt)">
 		    </ion-input>
 		</ion-item>
-    	<ion-item class="error-message" *ngIf="!registrarForm.controls.email.valid && (nomeChanged || submitAttempt)">
-      		<p>Digite o seu nome</p>
-    	</ion-item>
+    <ion-item class="error-message" *ngIf="!registrarForm.controls.nome.valid && (nomeChanged || submitAttempt)">
+     		<p>Digite o seu nome</p>
+    </ion-item>
 
 		<ion-item>
       		<ion-label stacked>Email</ion-label>

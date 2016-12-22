@@ -1,13 +1,19 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
+// Pages
+import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegistrarPage } from '../pages/registrar/registrar';
 import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
-import { AngularFireModule } from 'angularfire2';
+
 
 // Providers
 import { DataProvider } from '../providers/data';
+
+// Config Firebase
+import { AngularFireModule } from 'angularfire2';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBtfeUNoIA4WoM54c_Wx3huOh9T4N7xVHA",
@@ -22,7 +28,8 @@ export const firebaseConfig = {
     MyApp,
     LoginPage,
     RegistrarPage,
-    RecuperarSenhaPage
+    RecuperarSenhaPage,
+    HomePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -33,7 +40,8 @@ export const firebaseConfig = {
     MyApp,
     LoginPage,
     RegistrarPage,
-    RecuperarSenhaPage
+    RecuperarSenhaPage,
+    HomePage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
