@@ -4,6 +4,8 @@ import { NavController, NavParams, AlertController, LoadingController, Loading }
 import { AuthProvider } from '../../providers/auth';
 import { DataProvider } from '../../providers/data';
 
+import { LoginPage } from '../login/login';
+
 @Component({
   selector: 'page-perfil',
   templateUrl: 'perfil.html',
@@ -55,6 +57,20 @@ export class PerfilPage {
   				this.loading.dismiss();
   			});
   		}
+  	}
+
+  	/**
+  	 * Apagar Conta
+  	 */
+  	apagarConta() {
+  		this.showLoading('Apagando conta...');
+  		this.auth.apagarConta().subscribe(()=>{
+  			this.loading.dismiss();
+  			this.navCtrl.setRoot(LoginPage);
+  		}, err => {
+  			this.loading.dismiss();
+  			this.showError(err);
+  		});
   	}
 
   	/**

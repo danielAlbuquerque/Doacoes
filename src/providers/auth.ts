@@ -177,4 +177,27 @@ export class AuthProvider {
       		}
     	});
 	}	
+
+
+
+	/**
+	 * Apagar Conta
+	 */
+	apagarConta() {
+		return Observable.create(observer => {
+			let currentUser = firebase.auth().currentUser;
+			if(currentUser) {
+				currentUser.delete().then(() => {
+					this.logout().subscribe(() => {
+						observer.next(true);
+						observer.complete();	
+					});
+				}, error => {
+					observer.error(error);
+				});	
+			} else {
+				observer.error('Usuário não está logado');
+			}
+		});
+	}
 }
