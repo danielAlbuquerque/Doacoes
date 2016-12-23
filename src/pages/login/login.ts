@@ -92,6 +92,7 @@ export class LoginPage {
   		this.auth.loginFacebook().subscribe(() => {
          this.navCtrl.setRoot(HomePage);
       }, (err) => {
+        this.showError(err);
         console.log(err);
       });
   	}
