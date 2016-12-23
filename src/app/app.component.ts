@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { AlertController, LoadingController, Loading } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
-import { RegistrarPage } from '../pages/registrar/registrar';
 import { AuthProvider } from '../providers/auth';
 
 

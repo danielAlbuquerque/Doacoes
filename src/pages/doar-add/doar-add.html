@@ -1,12 +1,59 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Adicionar</ion-title>
+    <ion-title>Adicionar item</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="page-doar-add">
+
 	
+
+	<ion-list>
+		<ion-card>
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col width-25 *ngFor="let image of images">
+							<img [src]="image" width="100%" />
+						</ion-col> 	
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+		<ion-item>
+    		<ion-label>Estado:</ion-label>
+    		<ion-select [(ngModel)]="doacao.uf">
+		    	<ion-option value="ap">Amapá</ion-option>
+		    	<ion-option value="n64">Nintendo64</ion-option>
+		    	<ion-option value="ps">PlayStation</ion-option>
+		    	<ion-option value="genesis">Sega Genesis</ion-option>
+		    	<ion-option value="saturn">Sega Saturn</ion-option>
+		    	<ion-option value="snes">SNES</ion-option>
+    		</ion-select>
+  		</ion-item>
+
+  		<ion-item>
+    		<ion-label stacked>Descrição:</ion-label>
+    		<ion-textarea rows="6" placeholder="Descreva aqui oque você quer doar..."></ion-textarea>
+  		</ion-item>
+
+  		
+
+  		<ion-item>
+  			<button ion-button block medium>
+				Enviar
+			</button>
+  		</ion-item>
+		
+
+	</ion-list>
+
+	<ion-fab right bottom>
+	    <button (click)="enviarOptions()" ion-fab color="secondary"><ion-icon name="camera"></ion-icon></button>
+  	</ion-fab>
+
 </ion-content>
