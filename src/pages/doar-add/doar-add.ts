@@ -38,7 +38,9 @@ export class DoarAddPage {
 
 	ionViewDidLoad() {
     	this.localizacao();
-
+    	// for(let i = 0; i < 3; i++){
+    	// 	this.images.push("http://placehold.it/50x50");
+    	// }
   	}
 
   	/**
