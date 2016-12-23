@@ -3,6 +3,8 @@ import 'rxjs/add/operator/map';
 import {AuthProviders, AuthMethods, FirebaseAuth, AngularFire} from 'angularfire2';
 import {DataProvider} from './data';
 import {Observable} from 'rxjs/Observable';
+import firebase from 'firebase';
+
 
 
 @Injectable()
@@ -40,6 +42,22 @@ export class AuthProvider {
         		observer.error(err);
         	});
       	});      	
+  	}
+
+  	/**
+  	 * Recuperação de senha
+  	 * @param {[type]} email e-mail do usuário
+  	 */
+  	restaurarSenhaEmail(email) {
+  		return Observable.create(observer => {
+  			firebase.auth().sendPasswordResetEmail(email)
+  			.then(function() {
+  				observer.next();
+  				observer.complete();
+  			}, function(error) {
+  				observer.error(error);
+  			});
+  		});
   	}
 
 	/**
@@ -109,5 +127,12 @@ export class AuthProvider {
 	          	});
 	        });
       	}
+	}
+
+	/**
+	 * Método de autenticacao com facebook
+	 */
+	loginFacebook() {
+
 	}
 }
