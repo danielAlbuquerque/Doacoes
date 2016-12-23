@@ -11,6 +11,7 @@ import { DoacoesPage } from '../pages/doacoes/doacoes';
 import { DoarPage } from '../pages/doar/doar';
 import { ConversasPage } from '../pages/conversas/conversas';
 import { PerfilPage } from '../pages/perfil/perfil';
+import { DoarAddPage } from '../pages/doar-add/doar-add';
 
 // Providers
 import { DataProvider } from '../providers/data';
@@ -36,7 +37,8 @@ export const firebaseConfig = {
     DoacoesPage,
     DoarPage,
     ConversasPage,
-    PerfilPage
+    PerfilPage,
+    DoarAddPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -52,7 +54,8 @@ export const firebaseConfig = {
     DoacoesPage,
     DoarPage,
     ConversasPage,
-    PerfilPage
+    PerfilPage,
+    DoarAddPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
