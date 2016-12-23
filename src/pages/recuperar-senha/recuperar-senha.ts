@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, Loading } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthProvider } from '../../providers/auth';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-recuperar-senha',
@@ -21,13 +23,15 @@ export class RecuperarSenhaPage {
      * @param {FormBuilder}       public formBuilder 
      * @param {LoadingController} public loadingCtrl 
      * @param {AlertController}   public alertCtrl   
+     * @param {AuthProvider}      private auth   
      */
   	constructor(
   		public navCtrl: NavController, 
   		public navParams: NavParams,
   		public formBuilder: FormBuilder,
   		public loadingCtrl: LoadingController, 
-    	public alertCtrl: AlertController
+    	public alertCtrl: AlertController,
+      private auth: AuthProvider
   	) {
   		this.resetPasswordForm = formBuilder.group({
       		email: ['', Validators.compose([Validators.required])],
@@ -39,6 +43,16 @@ export class RecuperarSenhaPage {
      */
   	resetPassword(){
   		this.submitAttempt = true;
+      this.showLoading();
+      console.log(this.resetPasswordForm.value);
+
+      this.auth.restaurarSenhaEmail(this.resetPasswordForm.value.email).subscribe(() => {
+        this.loading.dismiss();
+        this.navCtrl.setRoot(LoginPage);
+      }, err => {
+        console.log(err);
+        this.showError(err);
+      });
   	}
 
   	/**
