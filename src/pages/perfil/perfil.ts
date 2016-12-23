@@ -63,14 +63,32 @@ export class PerfilPage {
   	 * Apagar Conta
   	 */
   	apagarConta() {
-  		this.showLoading('Apagando conta...');
-  		this.auth.apagarConta().subscribe(()=>{
-  			this.loading.dismiss();
-  			this.navCtrl.setRoot(LoginPage);
-  		}, err => {
-  			this.loading.dismiss();
-  			this.showError(err);
-  		});
+  		let confirm = this.alertCtrl.create({
+	      	title: 'Doações',
+	      	message: 'Deseja excluir a sua conta?',
+		    buttons: [
+		        {
+		          text: 'Não',
+		          handler: () => {
+		            
+		          }
+		        },
+		        {
+		          text: 'Sim',
+		          handler: () => {
+		            this.showLoading('Apagando conta...');
+			  		this.auth.apagarConta().subscribe(()=>{
+			  			this.loading.dismiss();
+			  			this.navCtrl.setRoot(LoginPage);
+			  		}, err => {
+			  			this.loading.dismiss();
+			  			this.showError(err);
+			  		});
+		          }
+		        }
+		    ]
+    	});
+    	confirm.present();
   	}
 
   	/**
