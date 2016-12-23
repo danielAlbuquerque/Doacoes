@@ -44,11 +44,10 @@ export class RecuperarSenhaPage {
   	resetPassword(){
   		this.submitAttempt = true;
       this.showLoading();
-      console.log(this.resetPasswordForm.value);
-
       this.auth.restaurarSenhaEmail(this.resetPasswordForm.value.email).subscribe(() => {
         this.loading.dismiss();
         this.navCtrl.setRoot(LoginPage);
+        // Todo: Implementar um toast informando o sucesso da operação
       }, err => {
         console.log(err);
         this.showError(err);

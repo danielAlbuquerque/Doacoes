@@ -7,7 +7,10 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegistrarPage } from '../pages/registrar/registrar';
 import { RecuperarSenhaPage } from '../pages/recuperar-senha/recuperar-senha';
-
+import { DoacoesPage } from '../pages/doacoes/doacoes';
+import { DoarPage } from '../pages/doar/doar';
+import { ConversasPage } from '../pages/conversas/conversas';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 // Providers
 import { DataProvider } from '../providers/data';
@@ -29,7 +32,11 @@ export const firebaseConfig = {
     LoginPage,
     RegistrarPage,
     RecuperarSenhaPage,
-    HomePage
+    HomePage,
+    DoacoesPage,
+    DoarPage,
+    ConversasPage,
+    PerfilPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -41,7 +48,11 @@ export const firebaseConfig = {
     LoginPage,
     RegistrarPage,
     RecuperarSenhaPage,
-    HomePage
+    HomePage,
+    DoacoesPage,
+    DoarPage,
+    ConversasPage,
+    PerfilPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

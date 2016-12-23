@@ -1,17 +1,6 @@
-<ion-header>
-
-  <ion-navbar color="primary">
-
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    
-    <ion-title>Início</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+<ion-tabs>
+	<ion-tab [root]="tabDoacoes" tabTitle="Doações" tabIcon="happy"></ion-tab>
+	<ion-tab [root]="tabDoar" tabTitle="Doar" tabIcon="heart"></ion-tab>
+	<ion-tab [root]="tabConversas" tabTitle="Conversas" tabIcon="chatbubbles"></ion-tab>
+	<ion-tab [root]="tabPerfil" tabTitle="Perfil" tabIcon="person"></ion-tab>
+</ion-tabs>
