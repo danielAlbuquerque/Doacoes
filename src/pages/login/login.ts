@@ -89,7 +89,11 @@ export class LoginPage {
      * Realiza o login através do facebook]
      */
   	loginFacebook() {
-  		// Todo: Implementar essa function
+  		this.auth.loginFacebook().subscribe(() => {
+         this.navCtrl.setRoot(HomePage);
+      }, (err) => {
+        console.log(err);
+      });
   	}
 
   	/**
