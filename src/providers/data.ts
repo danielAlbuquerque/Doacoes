@@ -40,7 +40,17 @@ export class DataProvider {
   	 * @param {any}    data Item para atualizar
   	 */
   	update(path: string, data: any) {
-  		this.af.database.object(path).update(data);
+      return Observable.create(observer => {
+        this.af.database.object(path).update(data).then((response) => {
+            console.log(response);
+            observer.next(true);
+            observer.complete();
+        }, (err) => {
+            console.log(err);
+            observer.error(err);
+        })  
+      });
+  		
   	}
 
   	/**

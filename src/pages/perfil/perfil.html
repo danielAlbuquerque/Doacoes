@@ -10,28 +10,41 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="page-perfil">
+
+	<img src="{{userData.image}}" class="img-circular"> <br />
+
 	<ion-list>
 
+	  	<ion-item>
+	    	<ion-label stacked>E-Mail: </ion-label>
+	    	<ion-input disabled type="email" [(ngModel)]="userData.email"></ion-input>
+	  	</ion-item>
+
 		<ion-item>
-		    <ion-label stacked>Nome</ion-label>
-		    <ion-input type="text"></ion-input>
+		    <ion-label stacked>Nome: </ion-label>
+		    <ion-input type="text" [(ngModel)]="userData.nome"></ion-input>
 	  	</ion-item>
 
-	  	<ion-item>
-	    	<ion-label stacked>E-Mail</ion-label>
-	    	<ion-input type="email"></ion-input>
-	  	</ion-item>
 
 	  	<ion-item>
-	    	<ion-label stacked>Telefone</ion-label>
-	    	<ion-input type="tel"></ion-input>
+	    	<ion-label stacked>Telefone: </ion-label>
+	    	<ion-input type="tel" [(ngModel)]="userData.telefone"></ion-input>
 	  	</ion-item>
 
 	  	<ion-item>
   			<ion-label> Mostrar telefone</ion-label>
-  			<ion-toggle checked="false"></ion-toggle>
+  			<ion-toggle [(ngModel)]="userData.mostrarTelefone"></ion-toggle>
 		</ion-item>
+
+		<button ion-button block medium (click)="atualizaInformacoes()">
+			Atualizar informações
+		</button>
+
+		<button ion-button icon-left block small color="danger" outline>
+			<ion-icon name="trash"></ion-icon>
+			Excluir Conta
+		</button>
 
 	</ion-list>
 </ion-content>
