@@ -16,7 +16,8 @@ export class RegistrarPage {
     registrarForm;
 	  nomeChanged: boolean = false;
 	  emailChanged: boolean = false;
-  	passwordChanged: boolean = false;
+    passwordChanged: boolean = false;
+  	telefoneChanged: boolean = false;
   	submitAttempt: boolean = false;
   	loading: Loading;
 
@@ -40,6 +41,7 @@ export class RegistrarPage {
   		  this.registrarForm = formBuilder.group({
   			    nome: ['', Validators.compose([Validators.required])],
           	email: ['', Validators.compose([Validators.required])],
+            telefone: [''],
           	password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
         });
   	}

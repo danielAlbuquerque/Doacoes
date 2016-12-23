@@ -95,7 +95,9 @@ export class AuthProvider {
 		            	email: 			authData.auth.email,
 		            	emailVerified:  false,
 		            	provider:       'email',
-		            	image: 		    'https://freeiconshop.com/files/edd/person-solid.png'
+		            	image: 		    'https://freeiconshop.com/files/edd/person-solid.png',
+		            	telefone:       credentials.telefone,
+		            	mostrarTelefone: true
 		            });
 
   					observer.next(true);
@@ -142,10 +144,12 @@ export class AuthProvider {
 		          let provider = firebase.auth.FacebookAuthProvider.credential(facebookData.authResponse.accessToken);
 		          firebase.auth().signInWithCredential(provider).then(firebaseData => {
 		            this.af.database.list('usuarios').update(firebaseData.uid, {
-		              nome: firebaseData.displayName,
-		              email: firebaseData.email,
-		              provider: 'facebook',
-		              image: firebaseData.photoURL
+		            	nome: firebaseData.displayName,
+		            	email: firebaseData.email,
+		            	provider: 'facebook',
+		            	image: firebaseData.photoURL,
+		            	telefone:       '',
+		            	mostrarTelefone: false
 		            });
 		            observer.next();
 		          });
@@ -161,7 +165,9 @@ export class AuthProvider {
 			            nome: facebookData.auth.displayName,
 			            email: facebookData.auth.email,
 			            provider: 'facebook',
-			            image: facebookData.auth.photoURL
+			            image: facebookData.auth.photoURL,
+			            telefone:       '',
+		            	mostrarTelefone: false
 		          	});
           			observer.next();
 		        }).catch((error) => {
