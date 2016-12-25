@@ -12,10 +12,7 @@ export class DoarAddPage {
 	loading: Loading;
 	images: Array<any> = [];
 	doacao = { uf: '' };
-	slideOptions = {
-    	pager:true,
-    	autoplay: 5000
-  	};
+	estados: Array<any> = [];
 
 
 	/**
@@ -34,7 +31,10 @@ export class DoarAddPage {
 		public alertCtrl: AlertController,
 	  	public loadingCtrl: LoadingController,
 	  	public actionSheetCtrl: ActionSheetController
-	) {}
+	) {
+		this.estados = this.getEstados();
+		console.log(this.estados);
+	}
 
 	ionViewDidLoad() {
     	this.localizacao();
@@ -158,5 +158,36 @@ export class DoarAddPage {
      */
     private useGaleria() {
 
+    }
+
+    getEstados() {
+    	return [
+    		{ sigla: 'ac', uf: 'Acre', checked: false },
+	    	{ sigla: 'al', uf: 'Alagoas', checked: false },
+	    	{ sigla: 'ap', uf: 'Amapá', checked: false },
+	    	{ sigla: 'am', uf: 'Amazonas', checked: false },
+	    	{ sigla: 'ba', uf: 'Bahia', checked: false },
+	    	{ sigla: 'ce', uf: 'Ceará', checked: false },
+	    	{ sigla: 'es', uf: 'Espírito Santo', checked: false },
+	    	{ sigla: 'go', uf: 'Goiás', checked: false },
+	    	{ sigla: 'ma', uf: 'Maranhão', checked: false },
+	    	{ sigla: 'mt', uf: 'Mato Grosso', checked: false },
+	    	{ sigla: 'ms', uf: 'Mato Grosso do Sul', checked: false },
+	    	{ sigla: 'mg', uf: 'Minas Gerais', checked: false },
+	    	{ sigla: 'pa', uf: 'Pará', checked: false },
+	    	{ sigla: 'pb', uf: 'Paraíba', checked: false },
+	    	{ sigla: 'pr', uf: 'Paraná', checked: false },
+	    	{ sigla: 'pe', uf: 'Pernambuco', checked: false },
+	    	{ sigla: 'pi', uf: 'Piauí', checked: false },
+	    	{ sigla: 'rj', uf: 'Rio de Janeiro', checked: false },
+	    	{ sigla: 'rn', uf: 'Rio Grande do Norte', checked: false },
+	    	{ sigla: 'rs', uf: 'Rio Grande do Sul', checked: false },
+	    	{ sigla: 'ro', uf: 'Rondônia', checked: false },
+	    	{ sigla: 'rr', uf: 'Roraima', checked: false },
+	    	{ sigla: 'sc', uf: 'Santa Catarina', checked: false },
+	    	{ sigla: 'sp', uf: 'São Paulo', checked: false },
+	    	{ sigla: 'se', uf: 'Sergipe', checked: false },
+	    	{ sigla: 'to', uf: 'Tocantins', checked: false }
+    	];
     }
 }

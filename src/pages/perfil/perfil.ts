@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-
 import { AuthProvider } from '../../providers/auth';
 import { DataProvider } from '../../providers/data';
 
@@ -23,21 +22,23 @@ export class PerfilPage {
 	 * @param {DataProvider}      public data          [description]
 	 * @param {AlertController}   public alertCtrl     [description]
 	 * @param {LoadingController} public loadingCtrl   [description]
+	 * @param {FormBuilder} public formBuilder   [description]
 	 */
 	constructor(
-		public navCtrl: NavController, 
+		public navCtrl: NavController,
 		public navParams: NavParams,
 		public auth: AuthProvider,
 		public data: DataProvider,
 		public alertCtrl: AlertController,
-	  	public loadingCtrl: LoadingController,
-	) {}
+	  public loadingCtrl: LoadingController
+	) {
+  }
 
 	/**
 	 * Executado quando a view foi carregada
 	 */
-	ionViewDidLoad() {
-		console.log("Carrendo");
+	  ionViewDidLoad() {
+		  console.log("Carrendo");
 	    this.carregaPerfil();
   	}
 
@@ -70,7 +71,7 @@ export class PerfilPage {
 		        {
 		          text: 'Não',
 		          handler: () => {
-		            
+
 		          }
 		        },
 		        {

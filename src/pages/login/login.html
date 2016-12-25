@@ -10,12 +10,12 @@
 <ion-content padding class="page-login">
 	<img src="http://placehold.it/300x100">
 	<form [formGroup]="loginForm" (submit)="loginEmail()" novalidate>
-		<ion-item>
+		  <ion-item>
       		<ion-label stacked>Email</ion-label>
 		    	<ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
 		        placeholder="Digite o seu e-mail" [class.invalid]="!loginForm.controls.email.valid && (emailChanged || submitAttempt)">
 		        </ion-input>
-		</ion-item>
+		  </ion-item>
     	<ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && (emailChanged || submitAttempt)">
       		<p>Digite o seu e-mail</p>
     	</ion-item>
