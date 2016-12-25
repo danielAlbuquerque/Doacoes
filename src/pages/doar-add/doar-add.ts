@@ -4,7 +4,7 @@ import { Geolocation } from 'ionic-native';
 import { Http } from '@angular/http';
 import { Camera } from 'ionic-native';
 import { DoacaoProvider } from '../../providers/doacao';
-
+import { DoacoesPage} from '../doacoes/doacoes';
 
 @Component({
   selector: 'page-doar-add',
@@ -50,9 +50,8 @@ export class DoarAddPage {
   	salvar() {
   		this.showLoading('Salvando...');
   		this.doacaoProvider.salvaDoacao(this.doacao).subscribe(data => {
-  			console.log(data);
   			this.loading.dismiss();
-  			this.navCtrl.setRoot();
+  			this.navCtrl.push(DoacoesPage);
   		}, err => {
   			this.loading.dismiss();
   			this.showError(err);
