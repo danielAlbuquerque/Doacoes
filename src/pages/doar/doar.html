@@ -1,51 +1,49 @@
 <ion-header>
-
-	<ion-navbar color="primary">
-		<button ion-button menuToggle>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
 		  	<ion-icon name="menu"></ion-icon>
 		</button>
-    	<ion-title>Doar</ion-title>
-  	</ion-navbar>
-
+        <ion-title>Doar</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-	<ion-fab right bottom>
-		<button (click)="add()" ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
-	</ion-fab>
+    <ion-fab right bottom>
+        <button (click)="add()" ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
 
-	<ion-card *ngFor="let row of doacoes">
-		<ion-item>
-			<ion-avatar item-left>
-			<img src="{{row.usuario.foto}}">
-			</ion-avatar>
-			<h2>{{row.usuario.nome}}</h2>
-    		<p>{{row.created_at | date: 'dd/mm/YYYY'}}</p>
- 		</ion-item>
+    <ion-card *ngFor="let row of doacoes">
+        <ion-item>
+            <ion-avatar item-left>
+                <img src="{{row.usuario.foto}}">
+            </ion-avatar>
+            <h2>{{row.usuario.nome}}</h2>
+            <p>{{row.created_at | amTimeAgo}}</p>
+        </ion-item>
 
-  		<img src="{{row.images[0]}}"/>
+        <img src="{{row.images[0]}}" />
 
-		<ion-card-content>
-			<p>
-			{{row.descricao}}
-			</p>
-		</ion-card-content>
+        <ion-card-content>
+            <p>
+                {{row.descricao}}
+            </p>
+        </ion-card-content>
 
-		<ion-row>
-    		<ion-col>
-				<button ion-button icon-left clear small>
+        <ion-row>
+            <ion-col>
+                <button (click)="excluir(row.$key)" ion-button icon-left clear small>
 					<ion-icon name="trash"></ion-icon>
-					<div>Excluir</div>
+					<div>Apagar</div>
 				</button>
-    		</ion-col>
-    		<ion-col center text-center>
-      			<ion-note>
-        			{{row.created_at | amTimeAgo}}
-      			</ion-note>
-    		</ion-col>
-  		</ion-row>
+            </ion-col>
+            <ion-col center text-center>
+                <ion-note>
 
-	</ion-card>
+                </ion-note>
+            </ion-col>
+        </ion-row>
+
+    </ion-card>
 
 </ion-content>

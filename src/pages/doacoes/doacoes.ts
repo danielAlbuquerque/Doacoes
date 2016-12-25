@@ -8,7 +8,11 @@ import { VerDoacoesPage } from '../ver-doacoes/ver-doacoes';
 })
 export class DoacoesPage {
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public app: App) {}
+	constructor(
+		public navCtrl: NavController, 
+		public navParams: NavParams, 
+		public app: App
+	) {}
 
 	goToPedirAjuda() {
 
@@ -17,5 +21,7 @@ export class DoacoesPage {
 	goToDoacoes() {
 		this.app.getRootNav().push(VerDoacoesPage);
 	}
+
+	
 
 }
