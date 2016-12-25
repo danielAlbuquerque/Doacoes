@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { MomentModule } from 'angular2-moment';
+
 
 // Pages
 import { HomePage } from '../pages/home/home';
@@ -12,6 +14,7 @@ import { DoarPage } from '../pages/doar/doar';
 import { ConversasPage } from '../pages/conversas/conversas';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { DoarAddPage } from '../pages/doar-add/doar-add';
+import { VerDoacoesPage } from '../pages/ver-doacoes/ver-doacoes';
 
 // Providers
 import { DataProvider } from '../providers/data';
@@ -38,11 +41,13 @@ export const firebaseConfig = {
     DoarPage,
     ConversasPage,
     PerfilPage,
-    DoarAddPage
+    DoarAddPage,
+    VerDoacoesPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +60,8 @@ export const firebaseConfig = {
     DoarPage,
     ConversasPage,
     PerfilPage,
-    DoarAddPage
+    DoarAddPage,
+    VerDoacoesPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

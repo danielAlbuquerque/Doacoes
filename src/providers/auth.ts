@@ -33,7 +33,6 @@ export class AuthProvider {
 		return Observable.create(observer => {
         	this.af.auth.subscribe(authData => {
 	          	if(authData) {
-	            	console.log('UID: ',authData.uid);
 		            this.data.object('usuarios/' + authData.uid).subscribe(userData => {
 		              observer.next(userData);
 		              observer.complete();

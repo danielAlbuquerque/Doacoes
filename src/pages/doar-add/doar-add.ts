@@ -4,17 +4,17 @@ import { Geolocation } from 'ionic-native';
 import { Http } from '@angular/http';
 import { Camera } from 'ionic-native';
 import { DoacaoProvider } from '../../providers/doacao';
-import { DoacoesPage} from '../doacoes/doacoes';
+import { HomePage } from '../home/home';
+import { AuthProvider } from '../../providers/auth';
 
 @Component({
   selector: 'page-doar-add',
   templateUrl: 'doar-add.html',
-  providers: [DoacaoProvider]
+  providers: [DoacaoProvider, AuthProvider]
 })
 export class DoarAddPage {
 	loading: Loading;
-	doacao = { uf: '', descricao: '', images: [], lat: 0, lng: 0 };
-	images: Array<any> = [];
+	doacao = { uf: '', descricao: '', images: [], lat: 0, lng: 0, user: '', foto: '', usuario: {} };
 	estados: Array<any> = [];
 
 
@@ -34,24 +34,27 @@ export class DoarAddPage {
 		public alertCtrl: AlertController,
 	  	public loadingCtrl: LoadingController,
 	  	public actionSheetCtrl: ActionSheetController,
-	  	public doacaoProvider: DoacaoProvider
+	  	public doacaoProvider: DoacaoProvider,
+	  	public auth: AuthProvider
 	) {
 		this.estados = this.getEstados();
-		console.log(this.estados);
+		
 	}
 
 	ionViewDidLoad() {
     	this.localizacao();
-    	// for(let i = 0; i < 3; i++){
-    	// 	this.images.push("http://placehold.it/50x50");
-    	// }
+    	
+    	this.auth.getUserData().subscribe(user => {
+    		this.doacao.user = user.$key;
+    	});
   	}
 
   	salvar() {
   		this.showLoading('Salvando...');
   		this.doacaoProvider.salvaDoacao(this.doacao).subscribe(data => {
   			this.loading.dismiss();
-  			this.navCtrl.push(DoacoesPage);
+  			this.navCtrl.pop();
+  			this.navCtrl.setRoot(HomePage);
   		}, err => {
   			this.loading.dismiss();
   			this.showError(err);
@@ -155,21 +158,17 @@ export class DoarAddPage {
     private useCamera() {
 		Camera.getPicture({
 	        destinationType: Camera.DestinationType.DATA_URL,
-	        targetWidth: 500,
-	        targetHeight: 500,
+	        targetWidth: 600,
+	        targetHeight: 390,
 	        saveToPhotoAlbum: true,
 	        quality: 95,
-	        allowEdit : false,
+	        allowEdit : true,
 	        encodingType: Camera.EncodingType.JPEG,
 	        mediaType: Camera.MediaType.PICTURE
 	    }).then((imageData) => {
-	    	this.images.push("data:image/jpeg;base64," + imageData);
-
-	    	let blob: any = new Blob( [imageData], { type: "image/jpeg" } );
-            blob.name = 'image.jpg';
-
-       		this.doacao.images.push(blob);
-
+			// let blob: any = new Blob( [imageData], { type: "image/jpeg" } );
+            // blob.name = 'image.jpg';
+       		this.doacao.images.push("data:image/jpeg;base64," + imageData);
 	    }, (err) => {
 	    	//this.showError(err);
 	        console.log(err);

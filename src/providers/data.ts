@@ -42,7 +42,6 @@ export class DataProvider {
   	update(path: string, data: any) {
       return Observable.create(observer => {
         this.af.database.object(path).update(data).then((response) => {
-            console.log(response);
             observer.next(true);
             observer.complete();
         }, (err) => {
@@ -58,8 +57,8 @@ export class DataProvider {
   	 * @param  {string}                      path documento
   	 * @return {FirebaseListObservable<any>}      retorna uma lista de objetos
   	 */
-  	list(path: string) : FirebaseListObservable<any> {
-  		return this.af.database.list(path);
+  	list(path: string, filter: Object) : FirebaseListObservable<any> {
+  		return this.af.database.list(path, filter);
   	}
 
   	/**

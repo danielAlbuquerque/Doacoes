@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
+import { NavController, NavParams, App } from 'ionic-angular';
+import { VerDoacoesPage } from '../ver-doacoes/ver-doacoes';
 
 @Component({
   selector: 'page-doacoes',
@@ -8,10 +8,14 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class DoacoesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+	constructor(public navCtrl: NavController, public navParams: NavParams, public app: App) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DoacoesPage');
-  }
+	goToPedirAjuda() {
+
+	}
+
+	goToDoacoes() {
+		this.app.getRootNav().push(VerDoacoesPage);
+	}
 
 }
