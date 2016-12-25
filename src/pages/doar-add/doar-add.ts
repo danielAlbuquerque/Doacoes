@@ -3,15 +3,18 @@ import { NavController, NavParams, AlertController, Loading, LoadingController, 
 import { Geolocation } from 'ionic-native';
 import { Http } from '@angular/http';
 import { Camera } from 'ionic-native';
+import { DoacaoProvider } from '../../providers/doacao';
+
 
 @Component({
   selector: 'page-doar-add',
-  templateUrl: 'doar-add.html'
+  templateUrl: 'doar-add.html',
+  providers: [DoacaoProvider]
 })
 export class DoarAddPage {
 	loading: Loading;
+	doacao = { uf: '', descricao: '', images: [], lat: 0, lng: 0 };
 	images: Array<any> = [];
-	doacao = { uf: '' };
 	estados: Array<any> = [];
 
 
@@ -30,7 +33,8 @@ export class DoarAddPage {
 		public http: Http,
 		public alertCtrl: AlertController,
 	  	public loadingCtrl: LoadingController,
-	  	public actionSheetCtrl: ActionSheetController
+	  	public actionSheetCtrl: ActionSheetController,
+	  	public doacaoProvider: DoacaoProvider
 	) {
 		this.estados = this.getEstados();
 		console.log(this.estados);
@@ -43,11 +47,23 @@ export class DoarAddPage {
     	// }
   	}
 
+  	salvar() {
+  		this.showLoading('Salvando...');
+  		this.doacaoProvider.salvaDoacao(this.doacao).subscribe(data => {
+  			console.log(data);
+  			this.loading.dismiss();
+  			this.navCtrl.setRoot();
+  		}, err => {
+  			this.loading.dismiss();
+  			this.showError(err);
+  		});
+  	}
+
   	/**
   	 * Actionsheet com opção de origem da foto
   	 */
   	enviarOptions() {
-  		if(this.images.length < 4){
+  		if(this.doacao.images.length < 4){
 	  		let actionSheet = this.actionSheetCtrl.create({
 	      		title: 'Obter foto da:',
 	      		buttons: [
@@ -88,6 +104,8 @@ export class DoarAddPage {
   				.map(res => res.json())
   				.subscribe(localData => {
 	  				if(localData.results[5].address_components[0].short_name) {
+	  					this.doacao.lat = resp.coords.latitude;
+	  					this.doacao.lng = resp.coords.longitude;
 	  					this.doacao.uf = localData.results[5].address_components[0].short_name;	
 	  				} else {
 	  					this.showError("Não foi possível buscar a sua localização, selecione o estado");
@@ -140,15 +158,21 @@ export class DoarAddPage {
 	        destinationType: Camera.DestinationType.DATA_URL,
 	        targetWidth: 500,
 	        targetHeight: 500,
-	        saveToPhotoAlbum: false,
+	        saveToPhotoAlbum: true,
 	        quality: 95,
-	        allowEdit : true,
-	        encodingType: Camera.EncodingType.PNG,
+	        allowEdit : false,
+	        encodingType: Camera.EncodingType.JPEG,
+	        mediaType: Camera.MediaType.PICTURE
 	    }).then((imageData) => {
-	    	let data = "data:image/jpeg;base64," + imageData;
-       		this.images.push(data);
+	    	this.images.push("data:image/jpeg;base64," + imageData);
+
+	    	let blob: any = new Blob( [imageData], { type: "image/jpeg" } );
+            blob.name = 'image.jpg';
+
+       		this.doacao.images.push(blob);
+
 	    }, (err) => {
-	    	this.showError(err);
+	    	//this.showError(err);
 	        console.log(err);
 	    });
     }

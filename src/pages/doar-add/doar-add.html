@@ -19,12 +19,12 @@
 		<ion-item>
     		<ion-label>Estado:</ion-label>
     		<ion-select [(ngModel)]="doacao.uf">
-		    	<ion-option *ngFor="let estado of estados" value="{{estado.sigla}}">{{estado.uf}}</ion-option> 
+		    	<ion-option *ngFor="let estado of estados" [value]="estado.sigla">{{estado.uf}}</ion-option> 
     		</ion-select>
   		</ion-item>
   		<ion-item>
     		<ion-label stacked>Descrição:</ion-label>
-    		<ion-textarea rows="6"></ion-textarea>
+    		<ion-textarea [(ngModel)]="doacao.descricao" rows="4"></ion-textarea>
   		</ion-item>
 	</ion-list>
 
