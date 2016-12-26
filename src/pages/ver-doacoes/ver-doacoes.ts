@@ -105,6 +105,7 @@ export class VerDoacoesPage {
    * @param {string} uf estado
    */
   private loadData(uf) {
+
     this.showLoading('Carregando doações da sua região...');
     this.doacaoProvider.doacoesLocais(uf).subscribe((doacoes) => {
       console.log(doacoes);

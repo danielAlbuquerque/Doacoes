@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, App } from 'ionic-angular';
 import { VerDoacoesPage } from '../ver-doacoes/ver-doacoes';
+import { PedidoDoacaoAddPage } from '../pedido-doacao-add/pedido-doacao-add';
 
 @Component({
   selector: 'page-doacoes',
@@ -14,8 +15,8 @@ export class DoacoesPage {
 		public app: App
 	) {}
 
-	goToPedirAjuda() {
-
+	goToReceber() {
+		this.app.getRootNav().push(PedidoDoacaoAddPage);
 	}
 
 	goToDoacoes() {

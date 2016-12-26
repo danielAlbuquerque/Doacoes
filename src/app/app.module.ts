@@ -15,7 +15,7 @@ import { ConversasPage } from '../pages/conversas/conversas';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { DoarAddPage } from '../pages/doar-add/doar-add';
 import { VerDoacoesPage, PopoverPage, ModalUfPage } from '../pages/ver-doacoes/ver-doacoes';
-
+import { PedidoDoacaoAddPage } from '../pages/pedido-doacao-add/pedido-doacao-add';
 
 // Providers
 import { DataProvider } from '../providers/data';
@@ -45,7 +45,8 @@ export const firebaseConfig = {
     DoarAddPage,
     VerDoacoesPage,
     PopoverPage,
-    ModalUfPage
+    ModalUfPage,
+    PedidoDoacaoAddPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -66,7 +67,8 @@ export const firebaseConfig = {
     DoarAddPage,
     VerDoacoesPage,
     PopoverPage,
-    ModalUfPage
+    ModalUfPage,
+    PedidoDoacaoAddPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
