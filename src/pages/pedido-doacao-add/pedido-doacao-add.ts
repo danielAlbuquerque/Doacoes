@@ -3,7 +3,6 @@ import {
   NavController, 
   NavParams, 
   PopoverController, 
-  ViewController, 
   Loading, 
   LoadingController, 
   AlertController,

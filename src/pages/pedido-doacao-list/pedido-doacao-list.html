@@ -7,10 +7,35 @@
 	    </ion-buttons>
 	    <ion-title>Pedidos de doação</ion-title>
   	</ion-navbar>
-
 </ion-header>
 
 
 <ion-content>
+	<ion-card *ngFor="let pedido of pedidos">
+	 	<ion-item>
+			<ion-avatar item-left>
+	      		<img src="{{pedido.usuario.foto}}">
+	    	</ion-avatar>
+	    	<h2>{{pedido.usuario.nome}}</h2>
+	    	<p>{{pedido.created_at | amTimeAgo}}</p>
+	    </ion-item>
+	    <ion-card-content>
+	    	<p>{{pedido.descricao}}</p>
+	    </ion-card-content>
+	    <ion-row>
+	    	<ion-col>
+		      <button ion-button icon-left clear small>
+		        <ion-icon name="chatbubbles"></ion-icon>
+		        <div>Enviar Mensagem</div>
+		      </button>
+    		</ion-col>
+    		<ion-col>
+      			<button ion-button icon-left clear small>
+	        		<ion-icon name="warning"></ion-icon>
+	        		<div>Denunciar</div>
+      			</button>
+    		</ion-col>
+	    </ion-row>
+	</ion-card>
 
 </ion-content>
