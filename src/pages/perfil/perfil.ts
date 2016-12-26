@@ -99,6 +99,7 @@ export class PerfilPage {
   		this.showLoading("Carregando perfil...");
 
     	this.auth.getUserData().subscribe((userData) => {
+        console.log(userData);
     		this.userData = userData;
     		this.loading.dismiss();
     	}, err => {

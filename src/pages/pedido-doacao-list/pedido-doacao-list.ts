@@ -5,6 +5,7 @@ import { PedidoProvider } from '../../providers/pedido';
 import { Geolocation } from 'ionic-native';
 import { Http } from '@angular/http';
 import { ModalUfPage } from '../ver-doacoes/ver-doacoes';
+import { ChatPage } from '../chat/chat';
 
 @Component({
   selector: 'page-pedido-doacao-list',
@@ -29,6 +30,10 @@ export class PedidoDoacaoListPage {
 
 	ionViewDidLoad() {
     	this.localiza();
+    }
+
+    mensagem(to) {
+    	this.app.getRootNav().push(ChatPage, {to: to});
     }
 
     /**

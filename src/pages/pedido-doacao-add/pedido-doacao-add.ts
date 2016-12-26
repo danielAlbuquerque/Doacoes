@@ -55,6 +55,7 @@ export class PedidoDoacaoAddPage {
   		this.auth.getUserData().subscribe((usuario) => { 
 	  		this.pedido.created_at = firebase.database['ServerValue']['TIMESTAMP'];
 	  		this.pedido.usuario = {
+	  			id: usuario.$key,
 	  			nome: usuario.nome,
 				email: usuario.email,
 				foto: usuario.image,
