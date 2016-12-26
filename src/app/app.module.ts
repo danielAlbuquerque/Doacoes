@@ -16,6 +16,9 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { DoarAddPage } from '../pages/doar-add/doar-add';
 import { VerDoacoesPage, PopoverPage, ModalUfPage } from '../pages/ver-doacoes/ver-doacoes';
 import { PedidoDoacaoAddPage } from '../pages/pedido-doacao-add/pedido-doacao-add';
+import { PedidoDoacaoTabPage } from '../pages/pedido-doacao-tab/pedido-doacao-tab';
+import { PedidoDoacaoMapPage } from '../pages/pedido-doacao-map/pedido-doacao-map';
+import { PedidoDoacaoListPage } from '../pages/pedido-doacao-list/pedido-doacao-list';
 
 // Providers
 import { DataProvider } from '../providers/data';
@@ -46,7 +49,10 @@ export const firebaseConfig = {
     VerDoacoesPage,
     PopoverPage,
     ModalUfPage,
-    PedidoDoacaoAddPage
+    PedidoDoacaoAddPage,
+    PedidoDoacaoTabPage,
+    PedidoDoacaoMapPage,
+    PedidoDoacaoListPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -68,7 +74,10 @@ export const firebaseConfig = {
     VerDoacoesPage,
     PopoverPage,
     ModalUfPage,
-    PedidoDoacaoAddPage
+    PedidoDoacaoAddPage,
+    PedidoDoacaoTabPage,
+    PedidoDoacaoMapPage,
+    PedidoDoacaoListPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
