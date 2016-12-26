@@ -11,7 +11,7 @@ import firebase from 'firebase';
 @Injectable()
 export class DoacaoProvider {
 
-	refDoacoes: FirebaseListObservable<any[]>;
+	refDoacoes: Observable<any[]>;
 
 	/**
 	 * Construtor
@@ -26,25 +26,26 @@ export class DoacaoProvider {
 	 */
 	doacoesLocais(uf: string) {
 		return Observable.create(observer => {
-			this.refDoacoes = this.data.list('doacoes', {
-				query: {
-					orderByChild: 'uf',
-					equalTo: uf
-				}
-			});
-			this.refDoacoes.subscribe((doacoes)=>{
-				doacoes.forEach(doacao => {
-					let picRef = firebase.storage().ref().child('images_doacoes/'+doacao.$key);
-					console.log(picRef);
-					picRef.getDownloadURL().then((url) => {
-						console.log('IMG', url);
+			let refDoacao = firebase.database().ref('doacoes').orderByChild('uf').equalTo(uf.toLowerCase());
+			refDoacao.once('value', (snap) => {
+				let items = [];
+				snap.forEach((snap) => {
+					items.push({
+						id: snap.key,
+						created_at: snap.val().created_at,
+						descricao: snap.val().descricao,
+						doado: snap.val().doado,
+						images: snap.val().images,
+						lat: snap.val().lat,
+						lng: snap.val().lng,
+						usuario: snap.val().usuario
 					});
+
+					return false;
 				});
-				
-				observer.next(doacoes);
+				console.log(items);
+				observer.next(items);
 				observer.complete();
-			}, err => {
-				observer.error(err);
 			});
 		})
 	}
@@ -54,19 +55,27 @@ export class DoacaoProvider {
 	 */
 	minhasDoacoes() {
 		return Observable.create(observer => {
-			let uid = firebase.auth().currentUser.uid;
-			this.refDoacoes = this.data.list('doacoes', {
-				query: {
-					orderByChild: 'user',
-					equalTo: uid
-				}
-			});
-			this.refDoacoes.subscribe((doacoes)=>{
-				observer.next(doacoes);
+			let refDoacao = firebase.database().ref('doacoes').orderByChild('user').equalTo(firebase.auth().currentUser.uid);
+			refDoacao.once('value', (snap) => {
+				let items = [];
+				snap.forEach((snap) => {
+					items.push({
+						id: snap.key,
+						created_at: snap.val().created_at,
+						descricao: snap.val().descricao,
+						doado: snap.val().doado,
+						images: snap.val().images,
+						lat: snap.val().lat,
+						lng: snap.val().lng,
+						usuario: snap.val().usuario
+					});
+
+					return false;
+				});
+				observer.next(items);
 				observer.complete();
-			}, err => {
-				observer.error(err);
 			});
+
 		});
 	}
 
