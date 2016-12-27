@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, App, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, App, Loading, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { DoacaoProvider } from '../../providers/doacao';
 import { DataProvider } from '../../providers/data';
 import { DoarAddPage } from '../doar-add/doar-add';
@@ -23,7 +23,8 @@ export class DoarPage {
       public doacaoProvider: DoacaoProvider,
       public loadingCtrl: LoadingController,
       public alertCtrl: AlertController,
-      public data: DataProvider
+      public data: DataProvider,
+      public toastCtrl: ToastController
      ) {}
 
 	  ionViewDidLoad() {
@@ -60,8 +61,16 @@ export class DoarPage {
           {
             text: 'Sim',
             handler: () => {
+              console.log(id);
               this.data.remove('doacoes/' + id).subscribe((data) => {
+                  this.toastCtrl.create({
+                    duration: 3000,
+                    message: 'Doação excluída',
+                    position: 'bottom'
+                  }).present();
                   this.ionViewDidLoad();
+              }, err => {
+                  this.showError(err);
               });
             }
           }
