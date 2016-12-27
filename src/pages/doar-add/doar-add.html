@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Adicionar item</ion-title>
+		<ion-title>Doar item</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,7 +9,7 @@
 		<ion-grid>
 			<ion-row>
 				<ion-col width-25>
-					<img (click)="enviarOptions()" src="http://joby.com/media/wysiwyg/joby/cms/gorillacam/icon-camera.png" class="img-item" />	
+					<img (click)="enviarOptions()" src="/assets/img/icon-camera.png" class="img-item" />	
 				</ion-col>
 				<ion-col width-25 *ngFor="let image of doacao.images">
 					<img [src]="image" class="img-item" />	
