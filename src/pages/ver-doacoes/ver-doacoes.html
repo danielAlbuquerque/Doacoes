@@ -20,7 +20,11 @@
             <p>{{row.created_at | amTimeAgo}}</p>
         </ion-item>
 
-        <img src="{{row.images[0]}}" />
+        <ion-slides>
+            <ion-slide>
+                <img src="{{row.images[0]}}" />
+            </ion-slide>
+        </ion-slides>
 
         <ion-card-content>
             <p>

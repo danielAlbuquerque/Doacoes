@@ -8,10 +8,26 @@
 </ion-header>
 
 
-<ion-content>
-    <ion-list>
-        <button ion-item (click)="goToDoacoes()">Doações</button>
-        <button ion-item (click)="goToPedidos()">Pedidos de doação</button>
-        <button ion-item (click)="goToReceber()">Receber</button>
-    </ion-list>
+<ion-content padding class="page-doacoes cards-bg">
+    <ion-card class="cards-list-demo">
+        <ion-card-header>
+            Explorar
+        </ion-card-header>
+        <ion-list>
+            <button ion-item (click)="goToDoacoes()">
+                <ion-icon name='search' item-left></ion-icon>
+                Ver doações
+            </button>
+            <button ion-item (click)="goToPedidos()">
+                <ion-icon name='heart' item-left></ion-icon>
+                Ver pedidos de doação
+            </button>
+            <button ion-item (click)="goToReceber()">
+                <ion-icon name='megaphone' item-left></ion-icon>
+                Pedir
+            </button>
+        </ion-list>    
+    </ion-card>
+
+    
 </ion-content>

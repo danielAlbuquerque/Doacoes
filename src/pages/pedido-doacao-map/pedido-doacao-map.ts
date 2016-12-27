@@ -41,11 +41,8 @@ export class PedidoDoacaoMapPage {
 
 	  ionViewDidLoad() {
     	this.localiza();
-      this.map = L.map('map',{ zoomControl:false, attributionControl:false }).setView([-0.057643799999999995, -51.169112], 13);
-      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: ''
-      }).addTo(this.map);
+      	this.map = L.map('map',{ zoomControl:false, attributionControl:false }).setView([-0.057643799999999995, -51.169112], 6);
+      	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(this.map);
   	}
 
   	/**

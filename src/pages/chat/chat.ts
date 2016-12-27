@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import firebase from 'firebase';
 import { AuthProvider } from '../../providers/auth';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 

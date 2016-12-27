@@ -36,15 +36,20 @@
   			<ion-label> Mostrar telefone</ion-label>
   			<ion-toggle [(ngModel)]="userData.mostrarTelefone"></ion-toggle>
 		</ion-item>
+		
+		<ion-fab right bottom>
+			<button ion-fab (click)="atualizaInformacoes()">
+				<ion-icon name="done-all"></ion-icon>
+			</button>
+		</ion-fab>
+		
 
-		<button ion-button block medium (click)="atualizaInformacoes()">
-			Atualizar informações
-		</button>
-
-		<button ion-button icon-left block small color="danger" outline (click)="apagarConta()">
-			<ion-icon name="trash"></ion-icon>
-			Excluir Conta
-		</button>
+		<ion-item>
+			<button ion-button icon-left small color="danger" outline (click)="apagarConta()">
+				<ion-icon name="trash"></ion-icon>
+				Excluir Conta
+			</button>
+		</ion-item>
 
 	</ion-list>
 </ion-content>

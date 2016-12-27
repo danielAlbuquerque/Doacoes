@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Loading, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth';
 import { DataProvider } from '../../providers/data';
 
@@ -30,15 +30,15 @@ export class PerfilPage {
 		public auth: AuthProvider,
 		public data: DataProvider,
 		public alertCtrl: AlertController,
-	  public loadingCtrl: LoadingController
+		public toastCtrl: ToastController,
+	  	public loadingCtrl: LoadingController
 	) {
   }
 
 	/**
 	 * Executado quando a view foi carregada
 	 */
-	  ionViewDidLoad() {
-		  console.log("Carrendo");
+	ionViewDidLoad() {
 	    this.carregaPerfil();
   	}
 
@@ -47,7 +47,6 @@ export class PerfilPage {
   	 */
   	atualizaInformacoes() {
   		if(this.userData.$key) {
-  			this.showLoading('Atualizando informações');
   			let data = {
   				email: this.userData.email,
   				nome: this.userData.nome,
@@ -55,7 +54,12 @@ export class PerfilPage {
   				mostrarTelefone: this.userData.mostrarTelefone
   			}
   			this.data.update('usuarios/'+this.userData.$key, data).subscribe(() => {
-  				this.loading.dismiss();
+				let toast = this.toastCtrl.create({
+					message: 'Perfil atualizado com sucesso',
+					duration: 3000,
+					position: 'bottom'
+				});
+				toast.present();
   			});
   		}
   	}
