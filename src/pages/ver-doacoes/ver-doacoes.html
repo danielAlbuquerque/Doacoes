@@ -10,12 +10,14 @@
 </ion-header>
 
 <ion-content class="page-ver-doacoes">
-    <ion-item *ngFor="let row of doacoes">
-        <ion-thumbnail item-left>
-        <img src="{{row.images[0]}}">
-        </ion-thumbnail>
-        <h2>{{row.descricao}}</h2>
-        <p>{{row.created_at | amTimeAgo}}</p>
-        <button ion-button clear item-right (click)="detalhesDoacao(row.id)">Ver</button>
-    </ion-item>
+    <ion-list>
+        <ion-item *ngFor="let row of doacoes">
+            <ion-thumbnail item-left>
+            <img src="{{row.images[0]}}">
+            </ion-thumbnail>
+            <h2>{{row.descricao}}</h2>
+            <p>{{row.created_at | amTimeAgo}}</p>
+            <button ion-button clear item-right (click)="detalhesDoacao(row.id)">Ver</button>
+        </ion-item>
+    </ion-list>
 </ion-content>
