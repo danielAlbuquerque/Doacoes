@@ -2,7 +2,7 @@
 	<ion-navbar color="primary">
 	    <ion-buttons start>
 	        <button ion-button icon-only (click)="close()">
-	        	<ion-icon name="arrow-round-back"></ion-icon>
+	        	<ion-icon name="close"></ion-icon>
 	      	</button>
 	    </ion-buttons>
 	    <ion-title>Pedidos de doação</ion-title>
@@ -23,17 +23,17 @@
 	    	<p>{{pedido.descricao}}</p>
 	    </ion-card-content>
 	    <ion-row>
-	    	<ion-col>
-		    	<button (click)="mensagem(pedido.usuario.id)" ion-button icon-left clear small>
-			        <ion-icon name="chatbubbles"></ion-icon>
-			        <div>Entrar em contato</div>
-		      	</button>
-    		</ion-col>
     		<ion-col>
       			<button ion-button icon-left clear small>
 	        		<ion-icon name="warning"></ion-icon>
 	        		<div>Denunciar</div>
       			</button>
+    		</ion-col>
+			<ion-col>
+		    	<button (click)="mensagem(pedido.usuario.id)" ion-button icon-left clear small>
+			        <ion-icon name="chatbubbles"></ion-icon>
+			        <div>Entrar em contato</div>
+		      	</button>
     		</ion-col>
 	    </ion-row>
 	</ion-card>
