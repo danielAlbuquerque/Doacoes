@@ -16,6 +16,6 @@
         </ion-thumbnail>
         <h2>{{row.descricao}}</h2>
         <p>{{row.created_at | amTimeAgo}}</p>
-        <button ion-button clear item-right>Ver</button>
+        <button ion-button clear item-right (click)="detalhesDoacao(row.id)">Ver</button>
     </ion-item>
 </ion-content>

@@ -11,7 +11,7 @@ import {
 import { Geolocation } from 'ionic-native';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
-
+import { DoacaoDetalhePage } from '../doacao-detalhe/doacao-detalhe';
 import { DoacaoProvider } from '../../providers/doacao';
 
 @Component({
@@ -40,6 +40,10 @@ export class VerDoacoesPage {
 
   ionViewDidLoad() {
       this.localizaUsuario();
+  }
+
+  detalhesDoacao(id) {
+    this.navCtrl.push(DoacaoDetalhePage, {id: id});
   }
 
   /**

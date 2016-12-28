@@ -19,6 +19,7 @@ import { PedidoDoacaoAddPage } from '../pages/pedido-doacao-add/pedido-doacao-ad
 import { PedidoDoacaoTabPage } from '../pages/pedido-doacao-tab/pedido-doacao-tab';
 import { PedidoDoacaoMapPage } from '../pages/pedido-doacao-map/pedido-doacao-map';
 import { PedidoDoacaoListPage } from '../pages/pedido-doacao-list/pedido-doacao-list';
+import { DoacaoDetalhePage } from '../pages/doacao-detalhe/doacao-detalhe';
 import { ChatPage } from '../pages/chat/chat';
 
 // Providers
@@ -54,7 +55,8 @@ export const firebaseConfig = {
     PedidoDoacaoTabPage,
     PedidoDoacaoMapPage,
     PedidoDoacaoListPage,
-    ChatPage
+    ChatPage,
+    DoacaoDetalhePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -80,7 +82,8 @@ export const firebaseConfig = {
     PedidoDoacaoTabPage,
     PedidoDoacaoMapPage,
     PedidoDoacaoListPage,
-    ChatPage
+    ChatPage,
+    DoacaoDetalhePage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
