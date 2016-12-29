@@ -1,12 +1,63 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>Detalhes</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+    	<ion-title>Detalhes</ion-title>
+    	<ion-buttons end>
+		    <button ion-button icon-only>
+		    	<ion-icon name="ios-heart-outline"></ion-icon>
+		    </button>
+		    <button ion-button icon-only>
+		    	<ion-icon name="md-share"></ion-icon>
+		    </button>
+    	</ion-buttons>
+  	</ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+	<ion-slides #slider (ionDidChange)="SlideChanged()" [options]="_sliderOptions" id="ionSlider">
+		<ion-slide #slide *ngFor="let robot of _robots">
+	    	<ion-item>
+            	<img src="http://www.tosbase.com/content/img/icons/items/icon_item_tpbox_100.png">
+        	</ion-item>
+	  	</ion-slide>
+	</ion-slides>
+
+	<div padding>
+		<h5>Descrição da doação  aquiaudgo iadugoiadugoaidugaio</h5>
+		<p>29 dezembro 10:20</p>
+		<hr>
+		<ion-icon name="pin"></ion-icon> Cabralzinho - Amapá
+		<hr>
+		<p>
+			Mussum Ipsum, cacilds vidis litro abertis. Casamentiss faiz malandris se pirulitá. Vehicula non. Ut sed ex eros. Vivamus sit amet nibh non tellus tristique interdum. Viva Forevis aptent taciti sociosqu ad litora torquent undefined
+		</p>
+		<hr>
+		<b>Anunciante</b><br />
+		<p>Daniel Albuquerque</p>
+		<a href="#">Denunciar</a>
+	</div>
+
+
 
 </ion-content>
+
+<ion-footer class="page-doacao-detalhe">
+	<ion-toolbar color="primary">
+  		<ion-buttons left>
+      		<button ion-button icon-left>
+      			<ion-icon name="call"></ion-icon>
+        		Ver telefone
+      		</button>
+    	</ion-buttons>
+
+    	<ion-buttons right>
+			<button ion-button icon-left>
+      			<ion-icon name="chatbubbles"></ion-icon>
+        		Chat
+      		</button>
+    	</ion-buttons>
+	</ion-toolbar>
+</ion-footer>
