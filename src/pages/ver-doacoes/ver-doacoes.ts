@@ -229,7 +229,7 @@ export class ModalUfPage {
 @Component({
   template: `
     <ion-list>
-      <button ion-item (click)="close()">Mais Recentes</button>
+      <button ion-item (click)="close()">Alterar Localização</button>
       <button ion-item (click)="close()">Mais Próximos</button>
     </ion-list>
   `
