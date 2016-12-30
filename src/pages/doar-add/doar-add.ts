@@ -124,6 +124,10 @@ export class DoarAddPage {
   		});
   	}
 
+  	onUfSelected() {
+
+  	}
+
   	/**
      * Exibe o popup loading
      */
@@ -186,7 +190,7 @@ export class DoarAddPage {
     	return [
     		{ sigla: 'ac', uf: 'Acre', checked: false },
 	    	{ sigla: 'al', uf: 'Alagoas', checked: false },
-	    	{ sigla: 'ap', uf: 'Amapá', checked: false },
+	    	{ sigla: 'ap', uf: 'Amapá', checked: true },
 	    	{ sigla: 'am', uf: 'Amazonas', checked: false },
 	    	{ sigla: 'ba', uf: 'Bahia', checked: false },
 	    	{ sigla: 'ce', uf: 'Ceará', checked: false },

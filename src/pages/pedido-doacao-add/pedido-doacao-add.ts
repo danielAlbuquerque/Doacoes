@@ -24,7 +24,7 @@ import { AuthProvider } from '../../providers/auth';
 export class PedidoDoacaoAddPage {
 	loading: Loading;
   	ufAtual: string = null;
-  	pedido = {uf: '', descricao: '', mostrarLocalizacao: true, lat: 0, lng: 0, created_at: '', usuario: {}, atendido: false};
+  	pedido = {uf: '', titulo: '', descricao: '', mostrarLocalizacao: true, lat: 0, lng: 0, created_at: '', usuario: {}, atendido: false};
   	map: any;
 
 	constructor(
