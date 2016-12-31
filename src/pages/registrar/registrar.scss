@@ -1,42 +1,65 @@
 page-registrar {
-  form {
-    margin-bottom: 32px;
-    button {
-      margin-top: 20px;
+    .strike {
+        display: block;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
     }
-  }
-
+    .strike>span {
+        position: relative;
+        display: inline-block;
+    }
+    .strike>span:before,
+    .strike>span:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 9999px;
+        height: 1px;
+        background: #c1bdbd;
+    }
+    .strike>span {
+        color: #c1bdbd;
+    }
+    .strike>span:before {
+        right: 100%;
+        margin-right: 15px;
+    }
+    .strike>span:after {
+        left: 100%;
+        margin-left: 15px;
+    }
+    form {
+        margin-bottom: 32px;
+        button {
+            margin-top: 20px;
+        }
+    }
     p {
-      font-size: 0.8em;
-      color: #d2d2d2;
+        font-size: 0.8em;
+        color: #d2d2d2;
     }
-
     ion-label {
-      margin-left: 5px;
+        margin-left: 5px;
     }
-
     ion-input {
-      padding: 5px;
+        padding: 5px;
     }
-
     .invalid {
-      border-bottom: 1px solid #FF6153;
+        border-bottom: 1px solid #FF6153;
     }
-
     .error-message .item-inner {
-      border-bottom: 0 !important;
+        border-bottom: 0 !important;
     }
-
     .btn-fb {
-      -moz-user-select: none;
-      background: #2A49A5;
-      border: 1px solid #082783;
-      box-shadow: 0 1px #4C6BC7 inset;
-      color: white;
-      padding: 3px 5px;
-      text-decoration: none;
-      text-shadow: 0 -1px 0 #082783;
-      font: 12px Verdana, sans-serif;
+        -moz-user-select: none;
+        background: #2A49A5;
+        border: 1px solid #082783;
+        box-shadow: 0 1px #4C6BC7 inset;
+        color: white;
+        padding: 3px 5px;
+        text-decoration: none;
+        text-shadow: 0 -1px 0 #082783;
+        font: 12px Verdana, sans-serif;
     }
-
 }

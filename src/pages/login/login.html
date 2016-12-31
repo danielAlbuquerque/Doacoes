@@ -1,47 +1,63 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>Doações</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>Doações</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding class="page-login">
-	<img src="assets/img/logo.png" class="img-center">
+<ion-content class="page-login">
+    <img src="assets/img/logo.png" class="img-center">
+    <div padding-horizontal>
+        <button (click)="loginFacebook()" ion-button icon-left block type="button" class="btn-fb">
+            <ion-icon name="logo-facebook"></ion-icon> Entrar usando Facebook
+        </button>
+    </div>
 
-	<form [formGroup]="loginForm" (submit)="loginEmail()" novalidate>
-		  <ion-item>
-      		<ion-label stacked>Email</ion-label>
-		    	<ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
-		        placeholder="Digite o seu e-mail" [class.invalid]="!loginForm.controls.email.valid && (emailChanged || submitAttempt)">
-		        </ion-input>
-		  </ion-item>
-    	<ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && (emailChanged || submitAttempt)">
-      		<p>Digite o seu e-mail</p>
-    	</ion-item>
+    <div padding-horizontal >
+        <div class="strike" style="padding-top: -40px;">
+            <span>ou</span>
+        </div>
+    </div>
 
-    	<ion-item>
-    		<ion-label stacked>Senha</ion-label>
-      		<ion-input #password formControlName="password" type="password" (change)="elementChanged(password)"
-        		placeholder="Digite sua senha" [class.invalid]="!loginForm.controls.password.valid && (passwordChanged || submitAttempt)">	
-			</ion-input>
-    	</ion-item>
+    <form [formGroup]="loginForm" (submit)="loginEmail()" novalidate #frmLogin  style="padding-bottom: -40px;">
+        <ion-item>
+            <ion-label stacked>Email</ion-label>
+            <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)" placeholder="Digite o seu e-mail" [class.invalid]="!loginForm.controls.email.valid && (emailChanged || submitAttempt)">
+            </ion-input>
+        </ion-item>
+        <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && (emailChanged || submitAttempt)">
+            <p>Digite o seu e-mail</p>
+        </ion-item>
 
-    	<ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && (passwordChanged || submitAttempt)">
-      		<p>Sua senha precisa ser maior que 6 caracteres</p>
-    	</ion-item>
+        <ion-item>
+            <ion-label stacked>Senha</ion-label>
+            <ion-input #password formControlName="password" type="password" (change)="elementChanged(password)" placeholder="Digite sua senha" [class.invalid]="!loginForm.controls.password.valid && (passwordChanged || submitAttempt)">
+            </ion-input>
+        </ion-item>
 
-    	<button ion-button block type="submit">
-      		Login
-    	</button>
-    	<button (click)="loginFacebook()" ion-button icon-left block type="button" class="btn-fb">
-    		<ion-icon name="logo-facebook"></ion-icon>
-      		Entrar usando Facebook
-    	</button>
-	</form>
+        <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && (passwordChanged || submitAttempt)">
+            <p>Sua senha precisa ser maior que 6 caracteres</p>
+        </ion-item>
 
-	<button ion-button block clear (click)="criarConta()">
+        <div padding-horizontal>
+            <button ion-button block medium type="submit">
+                Entrar
+            </button>
+        </div>
+    </form>
+
+    
+    
+
+    
+
+    
+
+    
+
+    <button ion-button block clear (click)="criarConta()">
       Criar uma conta
     </button>
 

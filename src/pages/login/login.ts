@@ -42,6 +42,7 @@ export class LoginPage {
         	email: ['', Validators.compose([Validators.required])],
         	password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
       	});
+
   	}
 
 
@@ -90,7 +91,10 @@ export class LoginPage {
      */
   	loginFacebook() {
   		this.auth.loginFacebook().subscribe(() => {
-         this.navCtrl.setRoot(HomePage);
+        setTimeout(() => {
+           this.navCtrl.setRoot(HomePage); 
+        });
+         
       }, (err) => {
         this.showError(err);
         console.log(err);

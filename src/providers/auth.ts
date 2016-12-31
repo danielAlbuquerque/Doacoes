@@ -147,7 +147,7 @@ export class AuthProvider {
 		            	email: firebaseData.email,
 		            	provider: 'facebook',
 		            	image: firebaseData.photoURL,
-		            	telefone:       '',
+		            	telefone: '',
 		            	mostrarTelefone: false
 		            });
 		            observer.next();

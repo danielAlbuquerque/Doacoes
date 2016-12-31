@@ -1,65 +1,64 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>Criar Conta</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>Criar Conta</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding class="page-registrar">
-	<form [formGroup]="registrarForm" (submit)="registrar()" novalidate>
+    <form [formGroup]="registrarForm" (submit)="registrar()" novalidate>
 
-		<ion-item>
-      	<ion-label stacked>Nome</ion-label>
-		    <ion-input #nome formControlName="nome" type="text" (change)="elementChanged(nome)"
-		        placeholder="Informe o seu nome" [class.invalid]="!registrarForm.controls.nome.valid && (nomeChanged || submitAttempt)">
-		    </ion-input>
-		</ion-item>
-    <ion-item class="error-message" *ngIf="!registrarForm.controls.nome.valid && (nomeChanged || submitAttempt)">
-     		<p>Digite o seu nome</p>
-    </ion-item>
-
-
-		<ion-item>
-      	<ion-label stacked>Email</ion-label>
-		    <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
-		        placeholder="Digite o seu e-mail" [class.invalid]="!registrarForm.controls.email.valid && (emailChanged || submitAttempt)">
-		    </ion-input>
-		</ion-item>
-    <ion-item class="error-message" *ngIf="!registrarForm.controls.email.valid && (emailChanged || submitAttempt)">
-      	<p>Digite o seu e-mail</p>
-    </ion-item>
-
-    <ion-item>
-        <ion-label stacked>Telefone</ion-label>
-        <ion-input #telefone formControlName="telefone" type="tel" (change)="elementChanged(telefone)"
-            placeholder="Digite o seu e-mail" [class.invalid]="!registrarForm.controls.telefone.valid && (telefoneChanged || submitAttempt)">
-        </ion-input>
-    </ion-item>
-    <ion-item class="error-message" *ngIf="!registrarForm.controls.telefone.valid && (telefoneChanged || submitAttempt)">
-        <p>Digite um telefone válido</p>
-    </ion-item>
+        <ion-item>
+            <ion-label stacked>Nome</ion-label>
+            <ion-input #nome formControlName="nome" type="text" (change)="elementChanged(nome)" placeholder="Informe o seu nome" [class.invalid]="!registrarForm.controls.nome.valid && (nomeChanged || submitAttempt)">
+            </ion-input>
+        </ion-item>
+        <ion-item class="error-message" *ngIf="!registrarForm.controls.nome.valid && (nomeChanged || submitAttempt)">
+            <p>Digite o seu nome</p>
+        </ion-item>
 
 
-    	<ion-item>
-    		<ion-label stacked>Senha</ion-label>
-      		<ion-input #password formControlName="password" type="password" (change)="elementChanged(password)"
-        		placeholder="Digite sua senha" [class.invalid]="!registrarForm.controls.password.valid && (passwordChanged || submitAttempt)">	
-			</ion-input>
-    	</ion-item>
+        <ion-item>
+            <ion-label stacked>Email</ion-label>
+            <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)" placeholder="Digite o seu e-mail" [class.invalid]="!registrarForm.controls.email.valid && (emailChanged || submitAttempt)">
+            </ion-input>
+        </ion-item>
+        <ion-item class="error-message" *ngIf="!registrarForm.controls.email.valid && (emailChanged || submitAttempt)">
+            <p>Digite o seu e-mail</p>
+        </ion-item>
 
-    	<ion-item class="error-message" *ngIf="!registrarForm.controls.password.valid && (passwordChanged || submitAttempt)">
-      		<p>Sua senha precisa ser maior que 6 caracteres</p>
-    	</ion-item>
+        <ion-item>
+            <ion-label stacked>Telefone</ion-label>
+            <ion-input #telefone formControlName="telefone" type="tel" (change)="elementChanged(telefone)" placeholder="Digite o seu e-mail" [class.invalid]="!registrarForm.controls.telefone.valid && (telefoneChanged || submitAttempt)">
+            </ion-input>
+        </ion-item>
+        <ion-item class="error-message" *ngIf="!registrarForm.controls.telefone.valid && (telefoneChanged || submitAttempt)">
+            <p>Digite um telefone válido</p>
+        </ion-item>
 
-    	<button ion-button block type="submit">
+
+        <ion-item>
+            <ion-label stacked>Senha</ion-label>
+            <ion-input #password formControlName="password" type="password" (change)="elementChanged(password)" placeholder="Digite sua senha" [class.invalid]="!registrarForm.controls.password.valid && (passwordChanged || submitAttempt)">
+            </ion-input>
+        </ion-item>
+
+        <ion-item class="error-message" *ngIf="!registrarForm.controls.password.valid && (passwordChanged || submitAttempt)">
+            <p>Sua senha precisa ser maior que 6 caracteres</p>
+        </ion-item>
+
+        <button ion-button block type="submit">
       		Criar Conta
     	</button>
-    	<button ion-button icon-left block type="button" class="btn-fb">
+        <div class="strike">
+            <span>ou</span>
+        </div>
+        <button ion-button icon-left block type="button" class="btn-fb">
     		<ion-icon name="logo-facebook"></ion-icon>
       		Criar usando o Facebook
     	</button>
-	</form>
+    </form>
 
 </ion-content>
