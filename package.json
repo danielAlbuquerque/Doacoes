@@ -42,7 +42,10 @@
     "cordova-plugin-console",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "cordova-plugin-facebook4",
+    "cordova-plugin-geolocation",
+    "cordova-plugin-sim"
   ],
   "cordovaPlatforms": [],
   "description": "doacoes: An Ionic project"

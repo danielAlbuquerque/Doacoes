@@ -1,14 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar, Splashscreen, Sim } from 'ionic-native';
 import { AlertController, LoadingController, Loading } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { AuthProvider } from '../providers/auth';
-
+import { LocalizacaoProvicer } from '../providers/localizacao';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [AuthProvider]
+  providers: [AuthProvider, LocalizacaoProvicer]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -24,10 +24,11 @@ export class MyApp {
    * @param {AuthProvider}      private auth        [description]
    */
   constructor(
-    public platform: Platform, 
-    private alertCtrl: AlertController, 
+    public platform: Platform,
+    private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private local: LocalizacaoProvicer
   ) {
     this.initializeApp();
   }
@@ -38,7 +39,21 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
+      StatusBar.backgroundColorByHexString('#044a60');
       Splashscreen.hide();
+      if(this.platform.is('cordova')) {
+        Sim.getSimInfo().then((info) => {
+            this.local.setUfByDDD(info.phoneNumber.substr(3, 2))
+              .subscribe((response) => {
+                if(!response) { // nao conseguiu salvar o estado
+
+                }
+              }, err => {
+                console.log(err);
+            });
+        });
+      }
+
     });
   }
 
@@ -53,7 +68,7 @@ export class MyApp {
         {
           text: 'Cancelar',
           handler: () => {
-            
+
           }
         },
         {
