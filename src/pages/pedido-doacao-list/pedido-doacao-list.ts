@@ -34,7 +34,7 @@ export class PedidoDoacaoListPage {
     public elementRef: ElementRef
   ) {}
 
-	 ionViewDidLoad() {
+	  ionViewDidLoad() {
        this.localizacao.getUf().subscribe(uf => {
            this.ufAtual = uf;
            this.loadData(this.ufAtual);
@@ -54,7 +54,9 @@ export class PedidoDoacaoListPage {
           this.pedidos = pedidos;
           pedidos.forEach((pedido) => {
               if(pedido.mostrarLocalizacao){
-                L.marker([pedido.lat, pedido.lng]).addTo(this.map);
+                L.marker([pedido.lat, pedido.lng])
+                .bindPopup('<b>AA</b>')
+                .addTo(this.map);
               }
           });
 

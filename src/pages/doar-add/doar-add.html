@@ -25,12 +25,6 @@
     		<ion-label stacked>Descrição:</ion-label>
     		<ion-textarea [(ngModel)]="doacao.descricao" rows="4"></ion-textarea>
   		</ion-item>
-  		<ion-item>
-    		<ion-label>Estado :</ion-label>
-    		<ion-select [(ngModel)]="doacao.uf" >
-		    	<ion-option *ngFor="let estado of estados" [value]="estado.sigla" selected="{{estado.sigla == doacao.uf}}">{{estado.uf}}</ion-option> 
-    		</ion-select>
-  		</ion-item>
  
 
 	</ion-list>

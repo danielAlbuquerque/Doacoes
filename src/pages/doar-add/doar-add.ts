@@ -6,16 +6,16 @@ import { Camera } from 'ionic-native';
 import { DoacaoProvider } from '../../providers/doacao';
 import { HomePage } from '../home/home';
 import { AuthProvider } from '../../providers/auth';
+import { LocalizacaoProvider } from '../../providers/localizacao';
 
 @Component({
   selector: 'page-doar-add',
   templateUrl: 'doar-add.html',
-  providers: [DoacaoProvider, AuthProvider]
+  providers: [DoacaoProvider, AuthProvider, LocalizacaoProvider]
 })
 export class DoarAddPage {
 	loading: Loading;
-	doacao = { uf: '', descricao: '', images: [], lat: 0, lng: 0, user: '', foto: '', usuario: {} };
-	estados: Array<any> = [];
+	doacao = { uf: '', titulo: '', descricao: '', images: [], lat: 0, lng: 0, user: '', foto: '', usuario: {} };
 
 
 	/**
@@ -35,22 +35,24 @@ export class DoarAddPage {
 	  	public loadingCtrl: LoadingController,
 	  	public actionSheetCtrl: ActionSheetController,
 	  	public doacaoProvider: DoacaoProvider,
-	  	public auth: AuthProvider
+	  	public auth: AuthProvider,
+	  	public localizacao: LocalizacaoProvider
 	) {
-		this.estados = this.getEstados();
 		
 	}
 
 	ionViewDidLoad() {
-    	this.localizacao();
-    	
+		this.localizacao.getUf().subscribe((uf) => {
+			this.doacao.uf = uf;
+		});
+
     	this.auth.getUserData().subscribe(user => {
     		this.doacao.user = user.$key;
     	});
   	}
 
   	salvar() {
-  		this.showLoading('Salvando...');
+  		this.showLoading('Aguarde...');
   		this.doacaoProvider.salvaDoacao(this.doacao).subscribe(data => {
   			this.loading.dismiss();
   			this.navCtrl.pop();
@@ -93,40 +95,6 @@ export class DoarAddPage {
 
   	}
 
-
-  	/**
-  	 * Localização Via gps
-  	 */
-  	localizacao() {
-  		this.showLoading('Buscando sua localização...');
-
-  		Geolocation.getCurrentPosition({enableHighAccuracy: true, timeout: 10000}).then((resp) => {
-  			let geocodingAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+resp.coords.latitude+","+resp.coords.longitude;  	
-  			this.http.get(geocodingAPI)
-  				.map(res => res.json())
-  				.subscribe(localData => {
-	  				if(localData.results[5].address_components[0].short_name) {
-	  					this.doacao.lat = resp.coords.latitude;
-	  					this.doacao.lng = resp.coords.longitude;
-	  					this.doacao.uf = localData.results[5].address_components[0].short_name;	
-	  				} else {
-	  					this.showError("Não foi possível buscar a sua localização, selecione o estado");
-	  				}
-	  				this.loading.dismiss();
-	  			}, err => {
-	  				console.log(err);
-	  				this.loading.dismiss();
-	  				this.showError("Não foi possível buscar a sua localização, selecione o estado");
-  			});
-
-  		}).catch(err => {
-  			this.showError(err);
-  		});
-  	}
-
-  	onUfSelected() {
-
-  	}
 
   	/**
      * Exibe o popup loading
@@ -183,37 +151,23 @@ export class DoarAddPage {
      * Usa a galeria
      */
     private useGaleria() {
-
-    }
-
-    getEstados() {
-    	return [
-    		{ sigla: 'ac', uf: 'Acre', checked: false },
-	    	{ sigla: 'al', uf: 'Alagoas', checked: false },
-	    	{ sigla: 'ap', uf: 'Amapá', checked: true },
-	    	{ sigla: 'am', uf: 'Amazonas', checked: false },
-	    	{ sigla: 'ba', uf: 'Bahia', checked: false },
-	    	{ sigla: 'ce', uf: 'Ceará', checked: false },
-	    	{ sigla: 'es', uf: 'Espírito Santo', checked: false },
-	    	{ sigla: 'go', uf: 'Goiás', checked: false },
-	    	{ sigla: 'ma', uf: 'Maranhão', checked: false },
-	    	{ sigla: 'mt', uf: 'Mato Grosso', checked: false },
-	    	{ sigla: 'ms', uf: 'Mato Grosso do Sul', checked: false },
-	    	{ sigla: 'mg', uf: 'Minas Gerais', checked: false },
-	    	{ sigla: 'pa', uf: 'Pará', checked: false },
-	    	{ sigla: 'pb', uf: 'Paraíba', checked: false },
-	    	{ sigla: 'pr', uf: 'Paraná', checked: false },
-	    	{ sigla: 'pe', uf: 'Pernambuco', checked: false },
-	    	{ sigla: 'pi', uf: 'Piauí', checked: false },
-	    	{ sigla: 'rj', uf: 'Rio de Janeiro', checked: false },
-	    	{ sigla: 'rn', uf: 'Rio Grande do Norte', checked: false },
-	    	{ sigla: 'rs', uf: 'Rio Grande do Sul', checked: false },
-	    	{ sigla: 'ro', uf: 'Rondônia', checked: false },
-	    	{ sigla: 'rr', uf: 'Roraima', checked: false },
-	    	{ sigla: 'sc', uf: 'Santa Catarina', checked: false },
-	    	{ sigla: 'sp', uf: 'São Paulo', checked: false },
-	    	{ sigla: 'se', uf: 'Sergipe', checked: false },
-	    	{ sigla: 'to', uf: 'Tocantins', checked: false }
-    	];
+    	Camera.getPicture({
+	        destinationType: Camera.DestinationType.DATA_URL,
+	        targetWidth: 600,
+	        targetHeight: 390,
+	        saveToPhotoAlbum: true,
+	        quality: 95,
+	        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+	        allowEdit : true,
+	        encodingType: Camera.EncodingType.JPEG,
+	        mediaType: Camera.MediaType.PICTURE
+	    }).then((imageData) => {
+			// let blob: any = new Blob( [imageData], { type: "image/jpeg" } );
+            // blob.name = 'image.jpg';
+       		this.doacao.images.push("data:image/jpeg;base64," + imageData);
+	    }, (err) => {
+	    	//this.showError(err);
+	        console.log(err);
+	    });
     }
 }

@@ -6,7 +6,7 @@ import {
   Loading,
   LoadingController,
   AlertController,
-  ModalController } from 'ionic-angular';
+  ModalController, App } from 'ionic-angular';
 
 import { Geolocation } from 'ionic-native';
 import { Component, ViewChild, ElementRef } from '@angular/core';
@@ -14,6 +14,7 @@ import { Http } from '@angular/http';
 import { DoacaoDetalhePage } from '../doacao-detalhe/doacao-detalhe';
 import { DoacaoProvider } from '../../providers/doacao';
 import { LocalizacaoProvider } from '../../providers/localizacao';
+import { DoarAddPage } from '../doar-add/doar-add';
 
 @Component({
   selector: 'page-ver-doacoes',
@@ -37,7 +38,8 @@ export class VerDoacoesPage {
     public http: Http,
     public modalCtrl: ModalController,
     public doacaoProvider: DoacaoProvider,
-    public localizacao: LocalizacaoProvider
+    public localizacao: LocalizacaoProvider,
+    public app: App
     ) {}
 
   ionViewDidLoad() {
@@ -53,6 +55,13 @@ export class VerDoacoesPage {
 
   detalhesDoacao(id) {
     this.navCtrl.push(DoacaoDetalhePage, {id: id});
+  }
+
+  /**
+   * Redireciona o usuário para a página de add
+   */
+  add() {
+    this.app.getRootNav().push(DoarAddPage);
   }
 
 

@@ -121,6 +121,15 @@ export class DoacaoProvider {
 
 	}
 
-
+	getById(doacaoId) {
+		return Observable.create(observer => {
+			this.data.object('doacoes/' + doacaoId).subscribe((response)=>{
+				observer.next(response);
+				observer.complete();
+			}, err => {
+				observer.error(err);
+			});
+		});
+	}
 
 }
