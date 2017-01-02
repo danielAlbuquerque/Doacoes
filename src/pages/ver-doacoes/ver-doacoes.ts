@@ -8,7 +8,6 @@ import {
   AlertController,
   ModalController, App } from 'ionic-angular';
 
-import { Geolocation } from 'ionic-native';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { DoacaoDetalhePage } from '../doacao-detalhe/doacao-detalhe';

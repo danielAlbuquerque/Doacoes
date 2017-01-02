@@ -9,17 +9,11 @@
 
 <ion-content>
 	<ion-list>
-		<ion-item>
-    		<ion-label>Estado:</ion-label>
-    		<ion-select [(ngModel)]="pedido.uf">
-		    	<ion-option *ngFor="let estado of getEstados()" [value]="estado.sigla">{{estado.uf}}</ion-option> 
-    		</ion-select>
-  		</ion-item>
-  		<ion-item>
+  	<ion-item>
     		<ion-label stacked>Descrição:</ion-label>
     		<ion-textarea placeholder="Descreva a sua necessidade..." [(ngModel)]="pedido.descricao" rows="4"></ion-textarea>
-  		</ion-item>
-  		<ion-item *ngIf="pedido.lat != 0">
+  	</ion-item>
+  	<ion-item *ngIf="pedido.lat != 0">
   			<ion-label> Mostrar Localização</ion-label>
   			<ion-toggle [(ngModel)]="pedido.mostrarLocalizacao"></ion-toggle>
 		</ion-item>

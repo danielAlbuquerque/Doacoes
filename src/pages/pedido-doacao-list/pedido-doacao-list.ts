@@ -2,11 +2,10 @@ import { Component, ElementRef } from '@angular/core';
 import { NavController, NavParams, App, Loading, LoadingController, AlertController, ModalController } from 'ionic-angular';
 import "leaflet";
 import { PedidoProvider } from '../../providers/pedido';
-import { Geolocation } from 'ionic-native';
-import { Http } from '@angular/http';
 import { ModalUfPage } from '../ver-doacoes/ver-doacoes';
 import { ChatPage } from '../chat/chat';
 import { LocalizacaoProvider } from '../../providers/localizacao';
+import { PedidoDoacaoAddPage } from '../pedido-doacao-add/pedido-doacao-add';
 
 @Component({
   selector: 'page-pedido-doacao-list',
@@ -27,7 +26,6 @@ export class PedidoDoacaoListPage {
 		public app: App,
 		public loadingCtrl: LoadingController,
 		public alertCtrl: AlertController,
-		public http: Http,
 		public modalCtrl: ModalController,
 		public pedidoProvider: PedidoProvider,
     public localizacao: LocalizacaoProvider,
@@ -67,8 +65,10 @@ export class PedidoDoacaoListPage {
           this.loading.dismiss();
         });
       });
+    }
 
-
+    add() {
+      this.app.getRootNav().push(PedidoDoacaoAddPage);
     }
 
     mensagem(to) {

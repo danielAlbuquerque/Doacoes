@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, Loading, LoadingController, ActionSheetController} from 'ionic-angular';
-import { Geolocation } from 'ionic-native';
 import { Http } from '@angular/http';
 import { Camera } from 'ionic-native';
 import { DoacaoProvider } from '../../providers/doacao';
@@ -138,11 +137,8 @@ export class DoarAddPage {
 	        encodingType: Camera.EncodingType.JPEG,
 	        mediaType: Camera.MediaType.PICTURE
 	    }).then((imageData) => {
-			// let blob: any = new Blob( [imageData], { type: "image/jpeg" } );
-            // blob.name = 'image.jpg';
        		this.doacao.images.push("data:image/jpeg;base64," + imageData);
 	    }, (err) => {
-	    	//this.showError(err);
 	        console.log(err);
 	    });
     }
@@ -162,11 +158,8 @@ export class DoarAddPage {
 	        encodingType: Camera.EncodingType.JPEG,
 	        mediaType: Camera.MediaType.PICTURE
 	    }).then((imageData) => {
-			// let blob: any = new Blob( [imageData], { type: "image/jpeg" } );
-            // blob.name = 'image.jpg';
        		this.doacao.images.push("data:image/jpeg;base64," + imageData);
 	    }, (err) => {
-	    	//this.showError(err);
 	        console.log(err);
 	    });
     }

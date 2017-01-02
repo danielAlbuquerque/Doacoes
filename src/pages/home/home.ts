@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 // pages
-import { DoacoesPage } from '../doacoes/doacoes';
-import { DoarPage } from '../doar/doar';
 import { ConversasPage } from '../conversas/conversas';
 import { PerfilPage } from '../perfil/perfil';
 import { VerDoacoesPage } from '../ver-doacoes/ver-doacoes';
@@ -15,15 +13,10 @@ import { PedidoDoacaoListPage } from '../pedido-doacao-list/pedido-doacao-list';
 })
 export class HomePage {
 
-	tabVerDoacoes:   any = VerDoacoesPage;
+	tabVerDoacoes:	any = VerDoacoesPage;
 	tabDoacao:      any = PedidoDoacaoListPage;
-	tabConversas: any = ConversasPage;
-	tabPerfil:    any = PerfilPage;
+	tabConversas:   any = ConversasPage;
+	tabPerfil:      any = PerfilPage;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-	ionViewDidLoad() {
-
-  }
-
 }

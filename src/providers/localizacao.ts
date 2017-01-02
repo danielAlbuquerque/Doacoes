@@ -48,9 +48,11 @@ export class LocalizacaoProvider {
   	getGeoLocation() {
   		return Observable.create(observer => {
   			Geolocation.getCurrentPosition().then((pos) => {
-
+            console.log(pos);
+            observer.next(pos.coords);
+            observer.complete();
   			}, err => {
-  				observer.erro(err);
+  				  observer.erro(err);
   			});
   		});
   	}

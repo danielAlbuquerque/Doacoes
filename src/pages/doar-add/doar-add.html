@@ -1,9 +1,8 @@
 <ion-header>
-  <ion-navbar color="primary">
+	<ion-navbar color="primary">
 		<ion-title>Doar item</ion-title>
-  </ion-navbar>
+  	</ion-navbar>
 </ion-header>
-
 <ion-content class="page-doar-add">
 	<ion-list>
 		<ion-grid>
@@ -16,7 +15,6 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-
   		<ion-item>
   			<ion-label stacked>Título:</ion-label>
   			<ion-input [(ngModel)]="doacao.titulo"></ion-input>
@@ -25,12 +23,8 @@
     		<ion-label stacked>Descrição:</ion-label>
     		<ion-textarea [(ngModel)]="doacao.descricao" rows="4"></ion-textarea>
   		</ion-item>
- 
-
 	</ion-list>
-
 	<ion-fab right bottom>
 	    <button (click)="salvar()" ion-fab color="primary"><ion-icon name="done-all"></ion-icon></button>
-  </ion-fab>
-
+  	</ion-fab>
 </ion-content>
