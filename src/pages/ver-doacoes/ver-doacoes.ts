@@ -1,10 +1,10 @@
-import { 
-  NavController, 
-  NavParams, 
-  PopoverController, 
-  ViewController, 
-  Loading, 
-  LoadingController, 
+import {
+  NavController,
+  NavParams,
+  PopoverController,
+  ViewController,
+  Loading,
+  LoadingController,
   AlertController,
   ModalController } from 'ionic-angular';
 
@@ -13,11 +13,12 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { DoacaoDetalhePage } from '../doacao-detalhe/doacao-detalhe';
 import { DoacaoProvider } from '../../providers/doacao';
+import { LocalizacaoProvider } from '../../providers/localizacao';
 
 @Component({
   selector: 'page-ver-doacoes',
   templateUrl: 'ver-doacoes.html',
-  providers: [DoacaoProvider]
+  providers: [DoacaoProvider, LocalizacaoProvider]
 })
 export class VerDoacoesPage {
   @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
@@ -28,53 +29,30 @@ export class VerDoacoesPage {
   doacoes: Array<any> = [];
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public popoverCtrl: PopoverController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public http: Http,
     public modalCtrl: ModalController,
-    public doacaoProvider: DoacaoProvider
+    public doacaoProvider: DoacaoProvider,
+    public localizacao: LocalizacaoProvider
     ) {}
 
   ionViewDidLoad() {
-      this.localizaUsuario();
+
+      this.localizacao.getUf().subscribe(uf => {
+          this.ufAtual = uf;
+          this.loadData(this.ufAtual);
+      }, err => {
+        console.log(err);
+        this.modalUf();
+      });
   }
 
   detalhesDoacao(id) {
     this.navCtrl.push(DoacaoDetalhePage, {id: id});
-  }
-
-  /**
-   * Localiza
-   */
-  localizaUsuario() {
-      this.showLoading('Buscando sua localização...');
-
-  		Geolocation.getCurrentPosition({enableHighAccuracy: true, timeout: 10000}).then((resp) => {
-  			let geocodingAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+resp.coords.latitude+","+resp.coords.longitude;  	
-  			this.http.get(geocodingAPI)
-  				.map(res => res.json())
-  				.subscribe(localData => {
-            this.loading.dismiss();
-	  				if(localData.results[5].address_components[0].short_name) {
-	  					this.ufAtual = localData.results[5].address_components[0].short_name;
-              this.loadData(this.ufAtual);
-	  				} else {
-	  					this.showError("Não foi possível buscar a sua localização, selecione o estado");
-              this.modalUf();
-	  				}
-	  			}, err => {
-	  				console.log(err);
-	  				this.loading.dismiss();
-	  				this.showError("Não foi possível buscar a sua localização, selecione o estado");
-            this.modalUf();
-  			});
-
-  		}).catch(err => {
-  			this.showError(err);
-  		});
   }
 
 
@@ -93,10 +71,11 @@ export class VerDoacoesPage {
    */
   private modalUf() {
     let modal = this.modalCtrl.create(ModalUfPage);
-    
+
     modal.onDidDismiss(data => {
       if(data.uf) {
         this.ufAtual = data.uf.sigla;
+        window.localStorage.setItem('UF', this.ufAtual);
         this.loadData(this.ufAtual);
       }
     });
@@ -109,10 +88,8 @@ export class VerDoacoesPage {
    * @param {string} uf estado
    */
   private loadData(uf) {
-
-    this.showLoading('Carregando doações da sua região...');
+    this.showLoading('Carregando');
     this.doacaoProvider.doacoesLocais(uf).subscribe((doacoes) => {
-      console.log(doacoes);
       this.doacoes = doacoes;
       this.loading.dismiss();
     }, err => {

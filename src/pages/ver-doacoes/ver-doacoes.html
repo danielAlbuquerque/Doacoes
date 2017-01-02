@@ -1,6 +1,9 @@
 <ion-header>
     <ion-navbar color="primary">
-        <ion-title>Doaçōes</ion-title>
+        <button ion-button menuToggle>
+		  	<ion-icon name="menu"></ion-icon>
+		</button>
+        <ion-title>Doações</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="showPopover($event)">
                 <ion-icon name="more"></ion-icon>
@@ -11,13 +14,13 @@
 
 <ion-content class="page-ver-doacoes">
     <ion-list>
-        <ion-item *ngFor="let row of doacoes">
-            <ion-thumbnail item-left>
+      <ion-item *ngFor="let row of doacoes">
+          <ion-thumbnail item-left>
             <img src="{{row.images[0]}}">
-            </ion-thumbnail>
-            <h2>{{row.descricao}}</h2>
-            <p>{{row.created_at | amTimeAgo}}</p>
-            <button ion-button clear item-right (click)="detalhesDoacao(row.id)">Ver</button>
-        </ion-item>
+          </ion-thumbnail>
+          <h2>{{row.descricao}}</h2>
+          <p>{{row.created_at | amTimeAgo}}</p>
+          <button ion-button clear item-right (click)="detalhesDoacao(row.id)">Ver</button>
+      </ion-item>
     </ion-list>
 </ion-content>

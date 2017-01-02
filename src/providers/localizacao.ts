@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class LocalizacaoProvicer {
+export class LocalizacaoProvider {
 
 	  constructor(public http: Http) {}
 
@@ -29,12 +29,23 @@ export class LocalizacaoProvicer {
       });
     }
 
+		getUf() {
+			return Observable.create(observer => {
+					let uf = window.localStorage.getItem('UF');
+					console.log(uf);
+					if (uf) {
+						observer.next(uf);
+					} else {
+						observer.error("UF nao salva");
+					}
+			});
 
+		}
 
   	/**
   	* Localiza o usuário via GPS
   	*/
-  	getLocation() {
+  	getGeoLocation() {
   		return Observable.create(observer => {
   			Geolocation.getCurrentPosition().then((pos) => {
 

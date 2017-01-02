@@ -4,11 +4,11 @@ import { StatusBar, Splashscreen, Sim } from 'ionic-native';
 import { AlertController, LoadingController, Loading } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { AuthProvider } from '../providers/auth';
-import { LocalizacaoProvicer } from '../providers/localizacao';
+import { LocalizacaoProvider } from '../providers/localizacao';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [AuthProvider, LocalizacaoProvicer]
+  providers: [AuthProvider, LocalizacaoProvider]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -28,7 +28,7 @@ export class MyApp {
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private auth: AuthProvider,
-    private local: LocalizacaoProvicer
+    private local: LocalizacaoProvider
   ) {
     this.initializeApp();
   }

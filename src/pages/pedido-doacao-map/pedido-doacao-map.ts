@@ -30,8 +30,8 @@ export class PedidoDoacaoMapPage {
 	 * @param {PedidoProvider}    public pedidoProvider [description]
 	 */
 	constructor(
-		public navCtrl: NavController, 
-		public navParams: NavParams, 
+		public navCtrl: NavController,
+		public navParams: NavParams,
 		public app: App,
 		public loadingCtrl: LoadingController,
 		public alertCtrl: AlertController,
@@ -52,7 +52,7 @@ export class PedidoDoacaoMapPage {
   		this.showLoading('Buscando sua localização...');
 
   		Geolocation.getCurrentPosition({enableHighAccuracy: true, timeout: 10000}).then((resp) => {
-  			let geocodingAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+resp.coords.latitude+","+resp.coords.longitude;  	
+  			let geocodingAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+resp.coords.latitude+","+resp.coords.longitude;
   			this.http.get(geocodingAPI)
   				.map(res => res.json())
   				.subscribe(localData => {
@@ -81,7 +81,7 @@ export class PedidoDoacaoMapPage {
    	*/
   	private modalUf() {
 	    let modal = this.modalCtrl.create(ModalUfPage);
-	    
+
 	    modal.onDidDismiss(data => {
 	      if(data.uf) {
 	        this.ufAtual = data.uf.sigla;
@@ -137,7 +137,7 @@ export class PedidoDoacaoMapPage {
               L.marker([pedido.lat, pedido.lng]).addTo(this.map);
             }
         });
-        
+
 
   			this.loading.dismiss();
   		}, err => {

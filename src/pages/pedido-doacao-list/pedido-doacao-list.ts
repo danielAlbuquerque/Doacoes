@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { NavController, NavParams, App, Loading, LoadingController, AlertController, ModalController } from 'ionic-angular';
 import "leaflet";
 import { PedidoProvider } from '../../providers/pedido';
@@ -6,76 +6,84 @@ import { Geolocation } from 'ionic-native';
 import { Http } from '@angular/http';
 import { ModalUfPage } from '../ver-doacoes/ver-doacoes';
 import { ChatPage } from '../chat/chat';
+import { LocalizacaoProvider } from '../../providers/localizacao';
 
 @Component({
   selector: 'page-pedido-doacao-list',
   templateUrl: 'pedido-doacao-list.html',
-  providers: [PedidoProvider]
+  providers: [PedidoProvider, LocalizacaoProvider]
 })
 export class PedidoDoacaoListPage {
 	pedidos: any = [];
 	loading: Loading;
 	ufAtual: string;
-  	
+  segOption: string = "lista";
+  map: any;
+  showMap: boolean = false;
 
 	constructor(
-		public navCtrl: NavController, 
-		public navParams: NavParams, 
+		public navCtrl: NavController,
+		public navParams: NavParams,
 		public app: App,
 		public loadingCtrl: LoadingController,
 		public alertCtrl: AlertController,
 		public http: Http,
 		public modalCtrl: ModalController,
-		public pedidoProvider: PedidoProvider) {}
+		public pedidoProvider: PedidoProvider,
+    public localizacao: LocalizacaoProvider,
+    public elementRef: ElementRef
+  ) {}
 
-	ionViewDidLoad() {
-    	this.localiza();
+	 ionViewDidLoad() {
+       this.localizacao.getUf().subscribe(uf => {
+           this.ufAtual = uf;
+           this.loadData(this.ufAtual);
+       }, err => {
+         console.log(err);
+         this.modalUf();
+       });
+    }
+
+    loadMapa() {
+      this.showLoading('Carregando');
+
+      setTimeout(() => {
+        this.map = L.map('map',{ zoomControl:false, attributionControl:false }).setView([-0.057643799999999995, -51.169112], 8);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(this.map);
+        this.pedidoProvider.porEstado(this.ufAtual).subscribe((pedidos) => {
+          this.pedidos = pedidos;
+          pedidos.forEach((pedido) => {
+              if(pedido.mostrarLocalizacao){
+                L.marker([pedido.lat, pedido.lng]).addTo(this.map);
+              }
+          });
+
+          console.log(this.map);
+          this.loading.dismiss();
+        }, err => {
+          console.log(err);
+          this.loading.dismiss();
+        });
+      });
+
+
     }
 
     mensagem(to) {
     	this.app.getRootNav().push(ChatPage, {to: to});
     }
 
-    /**
-  	 * Localiza o usuário
-  	 */
-  	private localiza() {
-  		this.showLoading('Buscando sua localização...');
-
-  		Geolocation.getCurrentPosition({enableHighAccuracy: true, timeout: 10000}).then((resp) => {
-  			let geocodingAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+resp.coords.latitude+","+resp.coords.longitude;  	
-  			this.http.get(geocodingAPI)
-  				.map(res => res.json())
-  				.subscribe(localData => {
-	  				if(localData.results[5].address_components[0].short_name) {
-	  					this.ufAtual = localData.results[5].address_components[0].short_name;
-	  					this.loadData(this.ufAtual);
-	  				} else {
-	  					this.showError("Não foi possível buscar a sua localização, selecione o estado");
-	  					this.modalUf();
-	  				}
-	  				this.loading.dismiss();
-	  			}, err => {
-	  				console.log(err);
-	  				this.loading.dismiss();
-	  				this.showError("Não foi possível buscar a sua localização, selecione o estado");
-	  				this.modalUf();
-  			});
-
-  		}).catch(err => {
-  			this.showError(err);
-  		});
-  	}
 
   	/**
    	* Modal para seleciona o estado manualmente
    	*/
   	private modalUf() {
 	    let modal = this.modalCtrl.create(ModalUfPage);
-	    
+
 	    modal.onDidDismiss(data => {
 	      if(data.uf) {
 	        this.ufAtual = data.uf.sigla;
+          window.localStorage.setItem('UF', this.ufAtual);
 	        this.loadData(this.ufAtual);
 	      }
 	    });
@@ -116,7 +124,7 @@ export class PedidoDoacaoListPage {
      * @param {string} uf uf de origem
      */
   	private loadData(uf) {
-  		this.showLoading('Carregando pedidos de doação...');
+  		this.showLoading('Carregando');
   		this.pedidoProvider.porEstado(uf).subscribe((pedidos) => {
   			console.log(pedidos);
   			this.pedidos = pedidos;
