@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { NavController, NavParams, App, Loading, LoadingController, AlertController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, App, Loading, LoadingController, AlertController, ModalController, ActionSheetController } from 'ionic-angular';
 import "leaflet";
 import { PedidoProvider } from '../../providers/pedido';
 import { ModalUfPage } from '../ver-doacoes/ver-doacoes';
@@ -29,7 +29,8 @@ export class PedidoDoacaoListPage {
 		public modalCtrl: ModalController,
 		public pedidoProvider: PedidoProvider,
     public localizacao: LocalizacaoProvider,
-    public elementRef: ElementRef
+    public elementRef: ElementRef,
+    public actionSheetCtrl: ActionSheetController
   ) {}
 
 	  ionViewDidLoad() {
@@ -53,7 +54,9 @@ export class PedidoDoacaoListPage {
           pedidos.forEach((pedido) => {
               if(pedido.mostrarLocalizacao){
                 L.marker([pedido.lat, pedido.lng])
-                .bindPopup('<b>AA</b>')
+                .bindPopup("<b>"+ pedido.usuario.nome +"</b><br />"
+                                + pedido.usuario.telefone + "<br />"
+                                + pedido.descricao)
                 .addTo(this.map);
               }
           });
@@ -140,5 +143,26 @@ export class PedidoDoacaoListPage {
   	close() {
   		this.app.getRootNav().pop();
   	}
+
+    mapPopupOptions() {
+      console.log("Teste");
+      let actionSheet = this.actionSheetCtrl.create({
+      title: 'Entrar em contato',
+      buttons: [
+        {
+          text: 'Ver telefone',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Enviar mensagem',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+      });
+      actionSheet.present();
+    }
 
 }
