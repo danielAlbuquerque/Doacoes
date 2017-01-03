@@ -1,28 +1,23 @@
 <ion-header>
-
   <ion-navbar color="primary">
-    <ion-title>Receber</ion-title>
+    <ion-title>Pedido de doação</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content>
 	<ion-list>
   	<ion-item>
-    		<ion-label stacked>Descrição:</ion-label>
-    		<ion-textarea placeholder="Descreva a sua necessidade..." [(ngModel)]="pedido.descricao" rows="4"></ion-textarea>
+  		<ion-label stacked>Descrição:</ion-label>
+  		<ion-textarea placeholder="Diga o que você está precisando" [(ngModel)]="pedido.descricao" rows="4"></ion-textarea>
   	</ion-item>
   	<ion-item *ngIf="pedido.lat != 0">
-  			<ion-label> Mostrar Localização</ion-label>
-  			<ion-toggle [(ngModel)]="pedido.mostrarLocalizacao"></ion-toggle>
+			<ion-label> Mostrar Localização</ion-label>
+			<ion-toggle (ngModelChange)="mostrarLoc()" [(ngModel)]="pedido.mostrarLocalizacao"></ion-toggle>
 		</ion-item>
 		<ion-item *ngIf="pedido.lat != 0 && pedido.mostrarLocalizacao">
 			<div style="height: 180px" id="map"></div>
 		</ion-item>
 	</ion-list>
-
 	<ion-fab right bottom>
-	    <button (click)="salvar()" ion-fab color="secondary"><ion-icon name="checkmark"></ion-icon></button>
-  	</ion-fab>
+    <button (click)="salvar()" ion-fab color="primary"><ion-icon name="done-all"></ion-icon></button>
+  </ion-fab>
 </ion-content>

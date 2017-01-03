@@ -52,6 +52,7 @@ export class PedidoDoacaoAddPage {
 	  		this.localizacao.getGeoLocation().subscribe(coords => {
 	  			this.pedido.lat = coords.latitude;
 	  			this.pedido.lng = coords.longitude;
+	  			this.initMap();
 	  			this.loading.dismiss();
 	  		}, err => {
 	  			console.log(err);
@@ -84,7 +85,7 @@ export class PedidoDoacaoAddPage {
 	  			this.loading.dismiss();
 	  			this.navCtrl.pop();
 	  			let toast = this.toastCtrl.create({
-					message: 'Pedido enviado com sucesso',
+					message: 'Seu pedido de doação foi registrado',
 					duration: 3000,
 					position: 'bottom'
 				});
@@ -94,6 +95,12 @@ export class PedidoDoacaoAddPage {
 	  			this.showError(err);
 	  		});
 	  	});
+  	}
+
+  	mostrarLoc() {
+  		if(!this.pedido.mostrarLocalizacao){
+  			this.initMap();
+  		}
   	}
 
   
@@ -137,5 +144,13 @@ export class PedidoDoacaoAddPage {
 	      buttons: ['OK']
 	    });
 	    alert.present(prompt);
+  	}
+
+  	private initMap() {
+  		setTimeout(() => {
+  			this.map = L.map('map',{ zoomControl:false, attributionControl:false }).setView([this.pedido.lat, this.pedido.lng], 14);
+        	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(this.map);
+        	L.marker([this.pedido.lat, this.pedido.lng]).addTo(this.map);	
+  		});
   	}
 }
