@@ -87,6 +87,7 @@ export class DoacaoProvider {
 			this.auth.getUserData().subscribe((usuario) => {
 				let doacao = {
 					doado: false,
+					titulo: doacaoData.titulo,
 					descricao: doacaoData.descricao,
 					uf: doacaoData.uf,
 					lat: doacaoData.lat,
