@@ -5,6 +5,7 @@ import { AlertController, LoadingController, Loading } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 import { AuthProvider } from '../providers/auth';
 import { LocalizacaoProvider } from '../providers/localizacao';
+import * as moment from 'moment';
 
 @Component({
   templateUrl: 'app.html',
@@ -37,6 +38,7 @@ export class MyApp {
    * Platform is ready
    */
   initializeApp() {
+    moment.locale('pt-br');
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
       StatusBar.backgroundColorByHexString('#01579B');
