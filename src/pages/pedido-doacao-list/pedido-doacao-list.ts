@@ -78,6 +78,36 @@ export class PedidoDoacaoListPage {
     	this.app.getRootNav().push(ChatPage, {to: to});
     }
 
+    presentActionSheet() {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'Filtrar',
+        buttons: [
+          {
+            text: 'Mais recentes',
+            icon: 'calendar',
+            handler: () => {
+              
+            }
+          },
+          {
+            text: 'Mais próximos',
+            icon: 'navigate',
+            handler: () => {
+              
+            }
+          },
+          {
+            text: 'Minhas publicações',
+            icon: 'contact',
+            handler: () => {
+              
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    }
+
 
   	/**
    	* Modal para seleciona o estado manualmente
