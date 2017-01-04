@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-chat',
@@ -12,6 +13,7 @@ export class ChatPage {
 	chatBox: string = '';
 	refConversa: any;
 	currentUser: any;
+	idUsuarioDest: any;
 
 	constructor(
 		public navCtrl: NavController, 
@@ -19,18 +21,33 @@ export class ChatPage {
 		public auth: AuthProvider,
 		public af: AngularFire
 	) {
-
+		this.idUsuarioDest = this.navParams.get('idUsuarioDest');
 	}
 
 	ionViewDidLoad() {
     	this.auth.getUserData().subscribe(currentUser => {
     		this.currentUser = currentUser;
-    		this.messages = this.af.database.list('conversas/'+this.currentUser.$key+'/'+this.navParams.get('to'));
+    		let userKey = this.currentUser.$key;
+    		let destKey =  this.idUsuarioDest;
+    		this.af.database.list('chats').push({
+    			title: 'Teste chat',
+    			lastMessage: 'adgadg...',
+    			timestamp: firebase.database['ServerValue']['TIMESTAMP'],
+    			members: {
+    				[userKey]: true,
+    				[destKey]: true
+    			}
+    		}).then((chatData) => {
+    			this.messages = this.af.database.list('chats/'+chatData.path.o[chatData.path.o.length - 1]+'/messages');
+    			console.log(this.messages);
+    		});
 		});
   	}
 
   	enviar(msg) {
-  		this.af.database.list('conversas/'+this.currentUser.$key+'/'+this.navParams.get('to')).push({
+  		this.messages.push({
+  			name: this.currentUser.nome,
+  			created_at: firebase.database['ServerValue']['TIMESTAMP'],
   			message: msg
   		});
   	}

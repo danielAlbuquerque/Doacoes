@@ -1,6 +1,8 @@
 import { Component, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { NavController, Slides, NavParams, LoadingController, AlertController, Loading, ActionSheetController } from 'ionic-angular';
 import { DoacaoProvider } from '../../providers/doacao';
+import { SocialSharing } from 'ionic-native';
+import { ChatPage } from '../chat/chat';
 
 @Component({
   selector: 'page-doacao-detalhe',
@@ -33,6 +35,10 @@ export class DoacaoDetalhePage {
 
 	}
 
+  chat() {
+    this.navCtrl.push(ChatPage, {idUsuarioDest: this.doacao.user});
+  }
+
   share() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Compartilhar',
@@ -41,7 +47,11 @@ export class DoacaoDetalhePage {
           text: 'Facebook',
           icon: 'logo-facebook',
           handler: () => {
-            console.log('Destructive clicked');
+              SocialSharing.shareViaFacebook('teste app compartilhamento via facebook', 'void', 'http://localhost').then(() => {
+                console.log("Compartilhou");
+              }).catch(err => {
+                console.log(err);
+              })
           }
         },{
           text: 'Whatsapp',
