@@ -54,7 +54,7 @@ export class VerDoacoesPage {
   }
 
   detalhesDoacao(id) {
-    this.navCtrl.push(DoacaoDetalhePage, {id: id});
+    this.app.getRootNav().push(DoacaoDetalhePage, {id: id});
   }
 
   /**
