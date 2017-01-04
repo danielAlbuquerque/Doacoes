@@ -39,7 +39,7 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
-      StatusBar.backgroundColorByHexString('#1A237E');
+      StatusBar.backgroundColorByHexString('#0288D1');
       Splashscreen.hide();
       if(this.platform.is('cordova')) {
         Sim.getSimInfo().then((info) => {

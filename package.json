@@ -45,7 +45,8 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-facebook4",
     "cordova-plugin-geolocation",
-    "cordova-plugin-sim"
+    "cordova-plugin-sim",
+    "cordova-plugin-x-socialsharing"
   ],
   "cordovaPlatforms": [],
   "description": "doacoes: An Ionic project"

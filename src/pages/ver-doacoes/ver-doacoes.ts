@@ -21,12 +21,13 @@ import { DoarAddPage } from '../doar-add/doar-add';
   providers: [DoacaoProvider, LocalizacaoProvider]
 })
 export class VerDoacoesPage {
-  @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
-  @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
+  // @ViewChild('popoverContent', { read: ElementRef }) content: ElementRef;
+  // @ViewChild('popoverText', { read: ElementRef }) text: ElementRef;
 
   loading: Loading;
   ufAtual: string = null;
   doacoes: Array<any> = [];
+  
 
   constructor(
     public navCtrl: NavController,
