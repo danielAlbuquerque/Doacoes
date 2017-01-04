@@ -7,14 +7,14 @@
 		</button>
         <ion-title>Doações</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only menuToggle="testRightMenu">
+            <button ion-button icon-only menuToggle="testRightMenu2">
                 <ion-icon name="funnel"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
-<ion-menu [content]="content" side="right" id="testRightMenu">
+<ion-menu [content]="content2" side="right" id="testRightMenu2">
   <ion-content>
     <ion-list no-lines>
       <ion-list-header>
@@ -27,7 +27,7 @@
   </ion-content>
 </ion-menu>
 
-<ion-content #content class="page-ver-doacoes">
+<ion-content #content2 class="page-ver-doacoes">
     <ion-fab right bottom>
         <button (click)="add()" ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
