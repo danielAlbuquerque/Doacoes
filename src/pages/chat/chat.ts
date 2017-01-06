@@ -14,6 +14,8 @@ export class ChatPage {
 	refConversa: any;
 	currentUser: any;
 	idUsuarioDest: any;
+  chatUserRef: any;
+  chatDestUserRef: any;
 
 	constructor(
 		public navCtrl: NavController, 
@@ -31,15 +33,30 @@ export class ChatPage {
     		let destKey =  this.idUsuarioDest;
     		this.af.database.list('chats').push({
     			title: 'Teste chat',
-    			lastMessage: 'adgadg...',
     			timestamp: firebase.database['ServerValue']['TIMESTAMP'],
     			members: {
     				[userKey]: true,
     				[destKey]: true
     			}
     		}).then((chatData) => {
-    			this.messages = this.af.database.list('chats/'+chatData.path.o[chatData.path.o.length - 1]+'/messages');
+          let chatId = chatData.path.o[chatData.path.o.length - 1];
+    			this.messages = this.af.database.list('chats/'+chatId+'/messages');
+
     			console.log(this.messages);
+
+          // chat dentro do usuário
+          this.chatUserRef = firebase.database().ref('usuarios').child(userKey).child('chats').child(chatId);
+          this.chatDestUserRef = firebase.database().ref('usuarios').child(destKey).child('chats').child(chatId);;
+
+          this.chatUserRef.update({
+            name: 'Daniel',
+            lastMessage: 'adgadgadadg...'
+          });
+
+          this.chatDestUserRef.update({
+            name: 'Daniel 2',
+            lastMessage: 'adgadg adgadgadadg...'
+          });
     		});
 		});
   	}

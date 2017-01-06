@@ -38,16 +38,16 @@ export class MyApp {
   ) {
     this.initializeApp();
 
-    this.push.register().then((t: PushToken) => {
-      return this.push.saveToken(t);
-    }).then((t: PushToken) => {
-      console.log('Token saved:', t.token);
-    });
+    // this.push.register().then((t: PushToken) => {
+    //   return this.push.saveToken(t);
+    // }).then((t: PushToken) => {
+    //   console.log('Token saved:', t.token);
+    // });
 
-    this.push.rx.notification()
-    .subscribe((msg) => {
-      alert(msg.title + ': ' + msg.text);
-    });
+    // this.push.rx.notification()
+    // .subscribe((msg) => {
+    //   alert(msg.title + ': ' + msg.text);
+    // });
   }
 
   /**
@@ -64,7 +64,7 @@ export class MyApp {
             this.local.setUfByDDD(info.phoneNumber.substr(3, 2))
               .subscribe((response) => {
                 if(!response) { // nao conseguiu salvar o estado
-                    console.log("Não conseguiui pegar o estado");
+                    console.log("Não conseguiui pegar o estado");  
                 }
               }, err => {
                 console.log(err);

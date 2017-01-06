@@ -96,7 +96,7 @@ export class LoginPage {
         });
          
       }, (err) => {
-        this.showError(err);
+        //this.showError(err);
         console.log(err);
       });
   	}
