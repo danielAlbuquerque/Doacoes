@@ -1,0 +1,1 @@
+cordova plugin add phonegap-plugin-push --variable SENDER_ID=112904404965 --save
