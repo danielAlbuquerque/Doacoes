@@ -17,12 +17,6 @@ export class ChatPage {
 	destUser:    any;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider,public af: AngularFire, public dataProvider: DataProvider) {
-		
-		
-		
-	}
-
-	ionViewDidLoad() {
 		this.auth.getUserData().subscribe(currentUser => {
 			this.currentUser = currentUser;
 
@@ -68,17 +62,11 @@ export class ChatPage {
 							created_at: firebase.database['ServerValue']['TIMESTAMP']
 						});	
 					}
-
-					console.log('chatId', chatId);
-
 					this.messages = this.dataProvider.list(`chats/${chatId}/messages`);
-					
 				});
-
-				
 			});
-		});
-  	}
+		});		
+	}
 
   	enviar(msg) {
 		console.log(this.currentUser.$key);
