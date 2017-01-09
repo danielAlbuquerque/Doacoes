@@ -57,7 +57,7 @@ export class DataProvider {
   	 * @param  {string}                      path documento
   	 * @return {FirebaseListObservable<any>}      retorna uma lista de objetos
   	 */
-  	list(path: string, filter: Object) : FirebaseListObservable<any> {
+  	list(path: string, filter: Object = {}) : FirebaseListObservable<any> {
   		return this.af.database.list(path, filter);
   	}
 

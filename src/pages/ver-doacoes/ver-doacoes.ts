@@ -97,7 +97,7 @@ export class VerDoacoesPage {
    * @param {string} uf estado
    */
   private loadData(uf) {
-    this.showLoading('Carregando');
+    this.showLoading('Carregando...');
     this.doacaoProvider.doacoesLocais(uf).subscribe((doacoes) => {
       this.doacoes = doacoes;
       this.loading.dismiss();

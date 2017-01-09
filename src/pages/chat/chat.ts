@@ -3,61 +3,79 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import firebase from 'firebase';
+import { DataProvider } from '../../providers/data';
 
 @Component({
   selector: 'page-chat',
-  templateUrl: 'chat.html'
+  templateUrl: 'chat.html',
+  providers: [DataProvider]
 })
 export class ChatPage {
-	messages: FirebaseListObservable<any>;
-	chatBox: string = '';
-	refConversa: any;
+	messages:    FirebaseListObservable<any>;
+	chatBox:     string = '';
 	currentUser: any;
-	idUsuarioDest: any;
-  chatUserRef: any;
-  chatDestUserRef: any;
+	destUser:    any;
 
-	constructor(
-		public navCtrl: NavController, 
-		public navParams: NavParams,
-		public auth: AuthProvider,
-		public af: AngularFire
-	) {
-		this.idUsuarioDest = this.navParams.get('idUsuarioDest');
+	constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider,public af: AngularFire, public dataProvider: DataProvider) {
+		
+		
+		
 	}
 
 	ionViewDidLoad() {
-    	this.auth.getUserData().subscribe(currentUser => {
-    		this.currentUser = currentUser;
-    		let userKey = this.currentUser.$key;
-    		let destKey =  this.idUsuarioDest;
-    		this.af.database.list('chats').push({
-    			title: 'Teste chat',
-    			timestamp: firebase.database['ServerValue']['TIMESTAMP'],
-    			members: {
-    				[userKey]: true,
-    				[destKey]: true
-    			}
-    		}).then((chatData) => {
-          let chatId = chatData.path.o[chatData.path.o.length - 1];
-    			this.messages = this.af.database.list('chats/'+chatId+'/messages');
+		this.auth.getUserData().subscribe(currentUser => {
+			this.currentUser = currentUser;
 
-    			console.log(this.messages);
+			firebase.database().ref('usuarios').child(this.navParams.get('idUsuarioDest')).once('value', snapDest => {
+				this.destUser = snapDest.val();
+				this.destUser.$key = snapDest.key;
 
-          // chat dentro do usuário
-          this.chatUserRef = firebase.database().ref('usuarios').child(userKey).child('chats').child(chatId);
-          this.chatDestUserRef = firebase.database().ref('usuarios').child(destKey).child('chats').child(chatId);;
+				// Verifica se a conversa ja existe
+				let conversasRef = firebase.database().ref('usuarios').child(this.currentUser.$key).child('chats');
+				conversasRef.orderByChild('destinatario').equalTo(this.destUser.$key);
+				
+				conversasRef.once('value', snap => {
+					let chatId: any = snap.key;
+					console.log(snap.val());
 
-          this.chatUserRef.update({
-            name: 'Daniel',
-            lastMessage: 'adgadgadadg...'
-          });
+					if(snap.val() === null) {
+						console.log('criando o chat');
+						
+						let members = { [currentUser.$key]: true,[this.destUser.$key]: true }
+						chatId = firebase.database().ref('chats').push({
+							title: 'Chat',
+							timestamp: firebase.database['ServerValue']['TIMESTAMP'],
+							members: members
+						}).key;
 
-          this.chatDestUserRef.update({
-            name: 'Daniel 2',
-            lastMessage: 'adgadg adgadgadadg...'
-          });
-    		});
+						//conversa usuario atual
+						firebase.database().ref('usuarios').child(this.currentUser.$key).child('chats').child(chatId).set({
+							name: this.destUser.nome,
+							destinatario: this.currentUser.$key,
+							lastMessage: '',
+							photo: this.destUser.image,
+							created_at: firebase.database['ServerValue']['TIMESTAMP']
+						});
+
+						//conversa usuario destinatario
+						firebase.database().ref('usuarios').child(this.destUser.$key).child('chats').child(chatId).set({
+							name: this.currentUser.nome,
+							destinatario: this.destUser.$key,
+							lastMessage: '',
+							photo: this.currentUser.image,
+							created_at: firebase.database['ServerValue']['TIMESTAMP']
+						});	
+					} else {
+						console.log('Chat ja existe');
+						
+					}
+
+					this.messages = this.dataProvider.list(`chats/${chatId}/messages`);
+					
+				});
+
+				
+			});
 		});
   	}
 
@@ -67,7 +85,8 @@ export class ChatPage {
   			created_at: firebase.database['ServerValue']['TIMESTAMP'],
   			message: msg
   		});
-  	}
+      this.chatBox = '';
+	}
 
 
 

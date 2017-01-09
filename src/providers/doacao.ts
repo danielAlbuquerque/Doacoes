@@ -25,7 +25,7 @@ export class DoacaoProvider {
 	 */
 	doacoesLocais(uf: string) {
 		return Observable.create(observer => {
-			let refDoacao = firebase.database().ref('doacoes').orderByChild('uf').equalTo(uf.toLowerCase());
+			let refDoacao = firebase.database().ref('doacoes').orderByChild('uf').equalTo(uf.toUpperCase());
 			refDoacao.once('value', (snap) => {
 				let items = [];
 				snap.forEach((snap) => {
@@ -115,10 +115,6 @@ export class DoacaoProvider {
 
 			
 		});
-
-	}
-
-	porEstado() {
 
 	}
 

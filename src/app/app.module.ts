@@ -28,7 +28,6 @@ import { DataProvider } from '../providers/data';
 // Config Firebase
 import { AngularFireModule } from 'angularfire2';
 
-import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBtfeUNoIA4WoM54c_Wx3huOh9T4N7xVHA",
@@ -38,23 +37,6 @@ export const firebaseConfig = {
   messagingSenderId: "112904404965"
 }
 
-const cloudSettings: CloudSettings = {
-  'core': {
-    'app_id': 'e4d58497'
-  },
-  'push': {
-    'sender_id': '112904404965',
-    'pluginConfig': {
-      'ios': {
-        'badge': true,
-        'sound': true
-      },
-      'android': {
-        'iconColor': '#343434'
-      }
-    }
-  }
-};
 
 @NgModule({
   declarations: [
@@ -80,7 +62,6 @@ const cloudSettings: CloudSettings = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    CloudModule.forRoot(cloudSettings),
     AngularFireModule.initializeApp(firebaseConfig),
     MomentModule
   ],
