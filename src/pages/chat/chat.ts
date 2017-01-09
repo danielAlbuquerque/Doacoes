@@ -45,23 +45,23 @@ export class ChatPage {
 							members: members
 						}).key;
 
+						let updObj = {};
+						
 						//conversa usuario atual
-						firebase.database().ref('usuarios').child(this.currentUser.$key).child('chats').child(this.chatId).set({
-							name: this.destUser.nome,
-							destinatario: this.destUser.$key,
-							lastMessage: '',
-							photo: this.destUser.image,
-							created_at: firebase.database['ServerValue']['TIMESTAMP']
-						});
+						updObj[`usuarios/${this.currentUser.$key}/chats/${this.chatId}/name`] = this.destUser.nome;
+						updObj[`usuarios/${this.currentUser.$key}/chats/${this.chatId}/destinatario`] = this.destUser.$key;
+						updObj[`usuarios/${this.currentUser.$key}/chats/${this.chatId}/lastMessage`] = '';
+						updObj[`usuarios/${this.currentUser.$key}/chats/${this.chatId}/photo`] = this.destUser.image;
+						updObj[`usuarios/${this.currentUser.$key}/chats/${this.chatId}/created_at`] = firebase.database['ServerValue']['TIMESTAMP'];
 
 						//conversa usuario destinatario
-						firebase.database().ref('usuarios').child(this.destUser.$key).child('chats').child(this.chatId).set({
-							name: this.currentUser.nome,
-							destinatario: this.currentUser.$key,
-							lastMessage: '',
-							photo: this.currentUser.image,
-							created_at: firebase.database['ServerValue']['TIMESTAMP']
-						});	
+						updObj[`usuarios/${this.destUser.$key}/chats/${this.chatId}/name`] = this.currentUser.nome;
+						updObj[`usuarios/${this.destUser.$key}/chats/${this.chatId}/destinatario`] = this.currentUser.$key;
+						updObj[`usuarios/${this.destUser.$key}/chats/${this.chatId}/lastMessage`] = '';
+						updObj[`usuarios/${this.destUser.$key}/chats/${this.chatId}/photo`] = this.currentUser.image;
+						updObj[`usuarios/${this.destUser.$key}/chats/${this.chatId}/created_at`] = firebase.database['ServerValue']['TIMESTAMP'];
+
+						firebase.database().ref().update(updObj);
 					}
 					console.log(this.chatId);
 					this.messages = this.dataProvider.list(`chats/${this.chatId}/messages`);
