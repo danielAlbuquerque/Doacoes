@@ -69,7 +69,6 @@ export class ChatPage {
 	}
 
   	enviar(msg) {
-		console.log(this.currentUser.$key);
   		this.messages.push({
 			from: { name: this.currentUser.nome, key: this.currentUser.$key },
   			created_at: firebase.database['ServerValue']['TIMESTAMP'],

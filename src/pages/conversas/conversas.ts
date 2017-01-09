@@ -1,22 +1,32 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth';
+import { DataProvider } from '../../providers/data';
+import firebase from 'firebase';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { ChatPage } from '../chat/chat';
 
-/*
-  Generated class for the Conversas page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-conversas',
-  templateUrl: 'conversas.html'
+  templateUrl: 'conversas.html',
+  providers: [AuthProvider, DataProvider]
 })
 export class ConversasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  conversas: FirebaseListObservable<any>;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConversasPage');
+  constructor(public navCtrl: NavController, public authProvider: AuthProvider, public dataProvider: DataProvider, public af: AngularFire, public app: App) {
+      this.loadChats();
+  }
+
+  loadChats() {
+    this.authProvider.getUserData().subscribe(currentUser => { 
+      this.conversas = this.af.database.list('usuarios/'+currentUser.$key+'/chats');
+    });
+  }
+
+  chat(destId) {
+    this.app.getRootNav().push(ChatPage, {idUsuarioDest: destId});
   }
 
 }
