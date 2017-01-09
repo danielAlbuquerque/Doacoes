@@ -15,6 +15,7 @@ export class ChatPage {
 	chatBox:     string = '';
 	currentUser: any;
 	destUser:    any;
+	chatId: any;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public auth: AuthProvider,public af: AngularFire, public dataProvider: DataProvider) {
 		this.auth.getUserData().subscribe(currentUser => {
@@ -29,43 +30,55 @@ export class ChatPage {
 				conversasRef.orderByChild('destinatario').equalTo(this.destUser.$key);
 				
 				conversasRef.once('value', snap => {
-					let chatId: any = null;
 
 					if(snap.val() !== null) {
-						var keys = Object.keys(snap.val()); 
-						chatId = keys[0];
+						var keys = Object.keys(snap.val());
+						console.log('CHATS ENCONTRADOS', keys);
+						this.chatId = keys[0];
 						console.log("Chat já existe, carregando");
 					} else {
 						console.log("Chat não existe, criando conversa");
 						let members = { [currentUser.$key]: true,[this.destUser.$key]: true }
-						chatId = firebase.database().ref('chats').push({
+						this.chatId = firebase.database().ref('chats').push({
 							title: 'Chat',
 							timestamp: firebase.database['ServerValue']['TIMESTAMP'],
 							members: members
 						}).key;
 
 						//conversa usuario atual
-						firebase.database().ref('usuarios').child(this.currentUser.$key).child('chats').child(chatId).set({
+						firebase.database().ref('usuarios').child(this.currentUser.$key).child('chats').child(this.chatId).set({
 							name: this.destUser.nome,
-							destinatario: this.currentUser.$key,
+							destinatario: this.destUser.$key,
 							lastMessage: '',
 							photo: this.destUser.image,
 							created_at: firebase.database['ServerValue']['TIMESTAMP']
 						});
 
 						//conversa usuario destinatario
-						firebase.database().ref('usuarios').child(this.destUser.$key).child('chats').child(chatId).set({
+						firebase.database().ref('usuarios').child(this.destUser.$key).child('chats').child(this.chatId).set({
 							name: this.currentUser.nome,
-							destinatario: this.destUser.$key,
+							destinatario: this.currentUser.$key,
 							lastMessage: '',
 							photo: this.currentUser.image,
 							created_at: firebase.database['ServerValue']['TIMESTAMP']
 						});	
 					}
-					this.messages = this.dataProvider.list(`chats/${chatId}/messages`);
+					console.log(this.chatId);
+					this.messages = this.dataProvider.list(`chats/${this.chatId}/messages`);
 				});
 			});
 		});		
+	}
+
+	ionViewDidEnter(){
+    	this.autoScroll();
+  	}
+
+	autoScroll() {
+		setTimeout(function () {
+			var itemList = document.getElementById("chat-autoscroll");
+			itemList.scrollTop = itemList.scrollHeight;
+		}, 10);
 	}
 
   	enviar(msg) {
@@ -75,6 +88,12 @@ export class ChatPage {
   			message: msg
   		});
       	this.chatBox = '';
+
+		// Atualiza a ultima mensagem
+		let updObj = {};
+		updObj[`usuarios/${this.currentUser.$key}/chats/${this.chatId}/lastMessage`] = msg;
+		updObj[`usuarios/${this.destUser.$key}/chats/${this.chatId}/lastMessage`] = msg;
+		firebase.database().ref().update(updObj);
 	}
 
 

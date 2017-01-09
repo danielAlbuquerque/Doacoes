@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="has-footer page-chat">
-	<div class="chatlogs">
+	<div class="chatlogs" id="chat-autoscroll" no-lines>
 			<div [ngClass]="currentUser.$key === message.from.key ? 'chat self' : 'chat friend'" *ngFor="let message of messages | async">
 				<div class="user-photo"><img src="{{destUser.image}}" alt=""></div>
 				<p class="chat-message">{{message.message}}</p>	
