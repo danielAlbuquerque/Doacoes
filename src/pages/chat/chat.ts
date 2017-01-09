@@ -35,12 +35,14 @@ export class ChatPage {
 				conversasRef.orderByChild('destinatario').equalTo(this.destUser.$key);
 				
 				conversasRef.once('value', snap => {
-					let chatId: any = snap.key;
-					console.log(snap.val());
+					let chatId: any = null;
 
-					if(snap.val() === null) {
-						console.log('criando o chat');
-						
+					if(snap.val() !== null) {
+						var keys = Object.keys(snap.val()); 
+						chatId = keys[0];
+						console.log("Chat já existe, carregando");
+					} else {
+						console.log("Chat não existe, criando conversa");
 						let members = { [currentUser.$key]: true,[this.destUser.$key]: true }
 						chatId = firebase.database().ref('chats').push({
 							title: 'Chat',
@@ -65,10 +67,9 @@ export class ChatPage {
 							photo: this.currentUser.image,
 							created_at: firebase.database['ServerValue']['TIMESTAMP']
 						});	
-					} else {
-						console.log('Chat ja existe');
-						
 					}
+
+					console.log('chatId', chatId);
 
 					this.messages = this.dataProvider.list(`chats/${chatId}/messages`);
 					
@@ -80,12 +81,13 @@ export class ChatPage {
   	}
 
   	enviar(msg) {
+		console.log(this.currentUser.$key);
   		this.messages.push({
-  			name: this.currentUser.nome,
+			from: { name: this.currentUser.nome, key: this.currentUser.$key },
   			created_at: firebase.database['ServerValue']['TIMESTAMP'],
   			message: msg
   		});
-      this.chatBox = '';
+      	this.chatBox = '';
 	}
 
 

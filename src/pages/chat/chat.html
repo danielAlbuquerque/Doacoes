@@ -5,18 +5,17 @@
 </ion-header>
 
 <ion-content class="has-footer page-chat">
-	<ion-list no-lines>
-      <ion-item class="messages" *ngFor="let message of messages | async">
-      	<span class="message span1">
-      		{{message.message}}
-      	</span>
-      </ion-item>
-  </ion-list>
+	<div class="chatlogs">
+			<div [ngClass]="currentUser.$key === message.from.key ? 'chat self' : 'chat friend'" *ngFor="let message of messages | async">
+				<div class="user-photo"><img src="{{destUser.image}}" alt=""></div>
+				<p class="chat-message">{{message.message}}</p>	
+			</div>
+	</div>
 </ion-content>
 
 <ion-footer>
 	<ion-toolbar>
-	    <ion-textarea [(ngModel)]="chatBox" placeholder="Mensagem..."></ion-textarea>
+	    <ion-textarea [(ngModel)]="chatBox" placeholder="Envie uma mensagem"></ion-textarea>
 	    <ion-buttons end>
 	        <button (click)="enviar(chatBox)" ion-button icon-right color="primary">Enviar<ion-icon name="send"></ion-icon></button>
 	    </ion-buttons>
