@@ -29,4 +29,7 @@ export class ConversasPage {
     this.app.getRootNav().push(ChatPage, {idUsuarioDest: destId});
   }
 
+  options(e) {
+    
+  }
 }

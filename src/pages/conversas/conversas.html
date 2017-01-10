@@ -12,7 +12,7 @@
 
 <ion-content class="page-conversas">
 	<ion-list>
-    <ion-item *ngFor="let conversa of conversas | async" (click)="chat(conversa.destinatario)">
+    <ion-item *ngFor="let conversa of conversas | async" (click)="chat(conversa.destinatario)" (press)="options($event)">
       <ion-avatar item-left>
         <img src="{{conversa.photo}}">
       </ion-avatar>

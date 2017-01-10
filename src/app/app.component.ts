@@ -33,17 +33,6 @@ export class MyApp {
     private local: LocalizacaoProvider
   ) {
     this.initializeApp();
-
-    // this.push.register().then((t: PushToken) => {
-    //   return this.push.saveToken(t);
-    // }).then((t: PushToken) => {
-    //   console.log('Token saved:', t.token);
-    // });
-
-    // this.push.rx.notification()
-    // .subscribe((msg) => {
-    //   alert(msg.title + ': ' + msg.text);
-    // });
   }
 
   /**
@@ -53,7 +42,7 @@ export class MyApp {
     moment.locale('pt-br');
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
-      StatusBar.backgroundColorByHexString('#01579B');
+      StatusBar.backgroundColorByHexString('#1A237E');
       Splashscreen.hide();
       if(this.platform.is('cordova')) {
         Sim.getSimInfo().then((info) => {
