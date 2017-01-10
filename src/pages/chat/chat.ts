@@ -24,12 +24,7 @@ export class ChatPage {
 			firebase.database().ref('usuarios').child(this.navParams.get('idUsuarioDest')).once('value', snapDest => {
 				this.destUser = snapDest.val();
 				this.destUser.$key = snapDest.key;
-
-				// LOGGIN
-				console.log('usuario_atual', this.currentUser.$key);
-				console.log('destinatario', this.destUser.$key);
-				// END LOGGIN
-
+				
 				// Verifica se a conversa ja existe
 				let conversasQuery = firebase.database().ref('usuarios')
 				.child(this.currentUser.$key).child('chats').orderByChild('destinatario')
