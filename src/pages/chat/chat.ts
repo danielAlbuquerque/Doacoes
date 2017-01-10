@@ -25,19 +25,22 @@ export class ChatPage {
 				this.destUser = snapDest.val();
 				this.destUser.$key = snapDest.key;
 
+				// LOGGIN
+				console.log('usuario_atual', this.currentUser.$key);
+				console.log('destinatario', this.destUser.$key);
+				// END LOGGIN
+
 				// Verifica se a conversa ja existe
-				let conversasRef = firebase.database().ref('usuarios').child(this.currentUser.$key).child('chats');
-				conversasRef.orderByChild('destinatario').equalTo(this.destUser.$key);
+				let conversasQuery = firebase.database().ref('usuarios')
+				.child(this.currentUser.$key).child('chats').orderByChild('destinatario')
+				.equalTo(this.destUser.$key);
 				
-				conversasRef.once('value', snap => {
+				conversasQuery.once('value', snap => {
 
 					if(snap.val() !== null) {
 						var keys = Object.keys(snap.val());
-						console.log('CHATS ENCONTRADOS', keys);
 						this.chatId = keys[0];
-						console.log("Chat já existe, carregando");
 					} else {
-						console.log("Chat não existe, criando conversa");
 						let members = { [currentUser.$key]: true,[this.destUser.$key]: true }
 						this.chatId = firebase.database().ref('chats').push({
 							title: 'Chat',
@@ -63,7 +66,6 @@ export class ChatPage {
 
 						firebase.database().ref().update(updObj);
 					}
-					console.log(this.chatId);
 					this.messages = this.dataProvider.list(`chats/${this.chatId}/messages`);
 				});
 			});
@@ -77,6 +79,7 @@ export class ChatPage {
 	autoScroll() {
 		setTimeout(function () {
 			var itemList = document.getElementById("chat-autoscroll");
+			console.log(itemList);
 			itemList.scrollTop = itemList.scrollHeight;
 		}, 10);
 	}
