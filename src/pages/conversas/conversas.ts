@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, App } from 'ionic-angular';
+import { NavController, App, AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth';
 import { DataProvider } from '../../providers/data';
 import firebase from 'firebase';
@@ -15,7 +15,7 @@ export class ConversasPage {
 
   conversas: FirebaseListObservable<any>;
 
-  constructor(public navCtrl: NavController, public authProvider: AuthProvider, public dataProvider: DataProvider, public af: AngularFire, public app: App) {
+  constructor(public navCtrl: NavController, public authProvider: AuthProvider, public dataProvider: DataProvider, public af: AngularFire, public app: App, public alertCtrl: AlertController) {
       this.loadChats();
   }
 
@@ -30,6 +30,24 @@ export class ConversasPage {
   }
 
   options(e) {
-    
+    let confirm = this.alertCtrl.create({
+      title: 'Deseja realmente excluir?',
+      message: 'Deseja apagar a conversa?',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            console.log(e);
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }

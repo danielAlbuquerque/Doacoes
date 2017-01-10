@@ -15,30 +15,30 @@
         </button>
     </div>
 
-    <div padding-horizontal >
+    <div padding-horizontal>
         <div class="strike" style="padding-top: -40px;">
             <span>ou</span>
         </div>
     </div>
 
     <form [formGroup]="loginForm" (submit)="loginEmail()" novalidate #frmLogin  style="padding-bottom: -40px;">
-        <ion-item>
+        <ion-item style="padding-right: 18px;">
             <ion-label stacked>Email</ion-label>
             <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)" placeholder="Digite o seu e-mail" [class.invalid]="!loginForm.controls.email.valid && (emailChanged || submitAttempt)">
             </ion-input>
         </ion-item>
         <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && (emailChanged || submitAttempt)">
-            <p>Digite o seu e-mail</p>
+            <p style="color: #FF6153;">E-Mail inválido</p>
         </ion-item>
 
-        <ion-item>
+        <ion-item style="padding-right: 18px;">
             <ion-label stacked>Senha</ion-label>
             <ion-input #password formControlName="password" type="password" (change)="elementChanged(password)" placeholder="Digite sua senha" [class.invalid]="!loginForm.controls.password.valid && (passwordChanged || submitAttempt)">
             </ion-input>
         </ion-item>
 
         <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && (passwordChanged || submitAttempt)">
-            <p>Sua senha precisa ser maior que 6 caracteres</p>
+            <p style="color: #FF6153;">Senha inválida</p>
         </ion-item>
 
         <div padding-horizontal>
@@ -47,6 +47,8 @@
             </button>
         </div>
     </form>
+
+
 
     
     

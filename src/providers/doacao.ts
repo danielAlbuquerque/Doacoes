@@ -89,7 +89,7 @@ export class DoacaoProvider {
 					doado: false,
 					titulo: doacaoData.titulo,
 					descricao: doacaoData.descricao,
-					uf: doacaoData.uf,
+					uf: doacaoData.uf.toUpperCase(),
 					lat: doacaoData.lat,
 					lng: doacaoData.lng,
 					user: doacaoData.user,
