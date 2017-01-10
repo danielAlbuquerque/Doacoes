@@ -66,7 +66,25 @@ export class LoginPage {
               this.navCtrl.setRoot(HomePage);
             });
         }, error => {
-            this.showError(error);
+            switch(error.code) {
+                case 'auth/invalid-email':
+                    this.showError("E-Mail inválido");
+                    break;
+                case 'auth/timeout':
+                    this.showError("Verifique sua conexão com a internet");
+                    break;
+                case 'auth/user-not-found':
+                    this.showError("E-Mail não encontrado");
+                    break;
+                case 'auth/wrong-password':
+                    this.showError("Senha inválida");
+                    break;
+                default:
+                    this.showError(error.message);
+                    break;
+            }
+
+            console.log(error);
         });
   		}
   	}
@@ -96,8 +114,11 @@ export class LoginPage {
         });
          
       }, (err) => {
-        //this.showError(err);
-        console.log(err);
+          if(err.errorMessage == "Facebook error: CONNECTION_FAILURE: CONNECTION_FAILURE") {
+              this.showError("Verifique sua conexão com a internet");
+          }
+            
+          console.log(err);
       });
   	}
 
@@ -131,7 +152,7 @@ export class LoginPage {
   		});
 
   		let alert = this.alertCtrl.create({
-  			title: 'Fail',
+  			title: 'Erro',
   			subTitle: text,
   			buttons: ['OK']
   		});

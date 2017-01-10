@@ -54,6 +54,8 @@ export class MyApp {
               }, err => {
                 console.log(err);
             });
+        }).catch(err => {
+          console.log(err);
         });
       }
 

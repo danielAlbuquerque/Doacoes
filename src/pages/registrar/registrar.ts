@@ -65,8 +65,21 @@ export class RegistrarPage {
                     this.navCtrl.setRoot(HomePage);
                   });
               }
-          }, err => {
-              this.showError(err);
+          }, error => {
+              switch(error.code) {
+                case 'auth/invalid-email':
+                    this.showError("E-Mail inválido");
+                    break;
+                case 'auth/timeout':
+                    this.showError("Verifique sua conexão com a internet");
+                    break;
+                default:
+                    this.showError(error.message);
+                    break;
+              }
+
+              console.log(error);
+
           });
 
 
