@@ -20,9 +20,8 @@
       <ion-list-header>
         Filtrar
       </ion-list-header>
-      <ion-item><ion-icon name="calendar" item-left></ion-icon> Mais Recents</ion-item>
-      <ion-item><ion-icon name="navigate" item-left></ion-icon> Mais próximos</ion-item>
-      <ion-item><ion-icon name="contact" item-left></ion-icon> Minhas Doaçōes</ion-item>
+      <ion-item (click)="filtrar('todas')" menuToggle="right"><ion-icon name="calendar" item-left></ion-icon> Todas as doações</ion-item>
+      <ion-item (click)="filtrar('minhas')" menuToggle="right"><ion-icon name="contact" item-left></ion-icon> Minhas Doaçōes</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

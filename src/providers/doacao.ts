@@ -54,6 +54,7 @@ export class DoacaoProvider {
 	 */
 	minhasDoacoes() {
 		return Observable.create(observer => {
+			console.log(firebase.auth().currentUser.uid);
 			let refDoacao = firebase.database().ref('doacoes').orderByChild('user').equalTo(firebase.auth().currentUser.uid);
 			refDoacao.once('value', (snap) => {
 				let items = [];

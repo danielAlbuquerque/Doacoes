@@ -53,6 +53,24 @@ export class VerDoacoesPage {
       });
   }
 
+  filtrar(opcao) {
+    switch (opcao) {
+      case "minhas":
+        this.showLoading('Carregando...');
+        this.doacaoProvider.minhasDoacoes().subscribe((doacoes) => {
+          this.doacoes = doacoes;
+          this.loading.dismiss();
+        }, err => {
+          console.log(err);
+        })
+        break;
+      
+      default:
+        this.loadData(this.ufAtual);
+        break;
+    }
+  }
+
   detalhesDoacao(id) {
     this.app.getRootNav().push(DoacaoDetalhePage, {id: id});
   }
